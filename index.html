@@ -38,7 +38,7 @@
 
         /* Header styles */
         .main-header {
-            background: linear-gradient(90deg, #FF6B6B, #FF8C00, #D4AF37, #0A2342); /* Dégradé de couleurs */
+            background: linear-gradient(90deg, #1E3A8A, #D4AF37, #FF6B6B, #FBCFE8); /* Dégradé de couleurs ajusté */
             background-size: 200% 200%;
             animation: gradient-animation 10s ease infinite; /* Animation plus lente */
             color: white;
@@ -52,70 +52,26 @@
             max-width: 5xl;
             margin: 0 auto;
             display: flex;
-            flex-direction: column; /* Par défaut en colonne pour mobile */
-            align-items: flex-start; /* Aligné à gauche */
-            position: relative; /* Pour positionner le menu burger */
+            flex-direction: row; /* Toujours en ligne, même sur mobile, pour un en-tête simple */
+            justify-content: center; /* Centrer la navigation */
+            align-items: center;
+            position: relative;
         }
-        @media (min-width: 1024px) { /* lg breakpoint for wider screens */
-            .header-content-wrapper {
-                flex-direction: row; /* En ligne pour desktop */
-                justify-content: space-between; /* Espacement entre nom/métier et nav */
-                align-items: center;
-            }
-        }
-        .header-info {
-            text-align: left; /* Aligné à gauche */
-            margin-bottom: 0.5rem; /* Espace sous le métier sur mobile */
-        }
-        @media (min-width: 1024px) {
-            .header-info {
-                margin-bottom: 0; /* Pas d'espace sur desktop */
-            }
-        }
-        .header-name {
-            font-size: 1.25rem; /* Plus petit pour le nom (text-xl) */
-            font-weight: 900;
-            white-space: nowrap; /* Empêche le nom de se couper */
-        }
-        .header-job-title {
-            font-size: 0.875rem; /* Plus petit pour le métier (text-sm) */
-            font-weight: 600;
-            opacity: 0.9;
-            white-space: nowrap; /* Empêche le métier de se couper */
-        }
+
         .header-nav {
             display: flex; /* Toujours affiché */
-            flex-direction: column; /* Onglets en colonne pour le menu burger */
-            width: 100%;
+            flex-direction: row; /* Toujours en ligne */
+            flex-wrap: nowrap; /* Sur une seule ligne */
+            overflow-x: auto; /* Défilement horizontal si trop d'onglets */
+            -webkit-overflow-scrolling: touch;
+            padding: 0;
+            border-top: none;
+            width: auto;
+            justify-content: center; /* Aligné au centre */
             gap: 0.25rem;
-            padding-top: 0.5rem;
-            border-top: 1px solid rgba(255,255,255,0.2);
-        }
-        @media (min-width: 1024px) {
-            .header-nav {
-                flex-direction: row; /* Onglets en ligne sur desktop */
-                flex-wrap: nowrap; /* Sur une seule ligne sur desktop */
-                overflow-x: auto; /* Défilement horizontal si trop d'onglets */
-                -webkit-overflow-scrolling: touch;
-                padding-bottom: 0;
-                border-top: none;
-                width: auto;
-                justify-content: flex-end; /* Aligné à droite sur desktop */
-            }
         }
         .menu-toggle {
-            display: block; /* Affiché par défaut sur mobile */
-            font-size: 1.5rem;
-            color: white;
-            cursor: pointer;
-            position: absolute;
-            top: 1rem;
-            right: 1.5rem;
-        }
-        @media (min-width: 1024px) {
-            .menu-toggle {
-                display: none; /* Caché sur desktop */
-            }
+            display: none; /* Toujours caché car le menu est toujours visible */
         }
         /* Keyframe animation for animated titles */
         @keyframes gradient-animation {
@@ -126,7 +82,7 @@
 
         /* Footer styles */
         .main-footer {
-            background: linear-gradient(90deg, #FF6B6B, #FF8C00, #D4AF37, #0A2342); /* Dégradé de couleurs identique au header */
+            background: linear-gradient(90deg, #1E3A8A, #D4AF37, #FF6B6B, #FBCFE8); /* Dégradé de couleurs identique au header */
             background-size: 200% 200%;
             animation: gradient-animation 10s ease infinite; /* Animation plus lente */
             color: white;
@@ -1033,12 +989,6 @@
             margin-bottom: 0.4rem;
             line-height: 1.5;
         }
-        .realisations-accordion-content ul li::before {
-            content: '✅'; /* Checkmark icon */
-            position: absolute;
-            left: 0;
-            color: #D4AF37;
-        }
         .realisations-accordion-content ul ul li::before {
             content: '➡️'; /* Arrow icon for nested lists */
             color: #FF8C00;
@@ -1255,22 +1205,23 @@
         
         /* New styles for the main hero section with the title */
         .hero-title-container {
-            background: linear-gradient(90deg, #60A5FA, #FDE047, #F472B6); /* Subtle blue, yellow, pink gradient */
-            background-size: 200% 200%;
-            animation: gradient-animation 10s ease infinite; /* Existing animation */
             text-align: center;
             padding: 3rem 1.5rem;
             border-radius: 0.75rem;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             margin-bottom: 2rem;
+            background: linear-gradient(90deg, #1E3A8A, #D4AF37, #FBCFE8);
+            background-size: 200% 200%;
+            animation: gradient-animation 10s ease infinite; 
         }
 
         .hero-name {
-            font-size: 2.5rem;
+            font-size: 1.5rem;
             font-weight: 900;
             letter-spacing: -1px;
             color: white;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            margin-bottom: 0.25rem;
         }
 
         .hero-job-title {
@@ -1278,12 +1229,11 @@
             font-weight: 600;
             color: white;
             opacity: 0.9;
-            margin-top: 0.5rem;
         }
 
         @media (min-width: 768px) {
             .hero-name {
-                font-size: 4rem;
+                font-size: 2rem;
             }
             .hero-job-title {
                 font-size: 1.5rem;
@@ -1295,11 +1245,6 @@
 <body>
     <div class="main-header">
         <div class="header-content-wrapper">
-            <div class="header-info">
-                <p class="header-name">Mathilde Martine PAISLEY</p>
-                <p class="header-job-title">Partenaire Stratégique RH, Paie & Transformation Digitale</p>
-            </div>
-            <div class="menu-toggle" id="menu-toggle">☰</div>
             <nav class="header-nav" id="header-nav">
                 <a class="tab-button" href="#presentation-section">Accueil & Profil</a>
                 <a class="tab-button" href="#experiences-section">Parcours Pro</a>
@@ -1780,7 +1725,7 @@
                             </div>
                             <div class="community-accordion-content">
                                 <p>Conception de supports pédagogiques dynamiques pour la communauté.</p>
-                                <p class="mt-2">Exemple de document : <a href="https://projettechacademy.github.io/Suivi-et-Revisi...d-de-Paie/" target="_blank" class="text-accent-blue hover:text-peps-rose-orange underline">✨ Programme ✨ Suivi ✨ Révision ✨ Évaluation ✨ Graduate Gestionnaire de Paie ✨</a> (Objectif: Certification Gestionnaire de Paie)</p>
+                                <p class="mt-2">Exemple de document : <a href="https://projettechacademy.github.io/Suivi-et-Revision-des-Competences-Gestionnaire-de-Paie/" target="_blank" class="text-accent-blue hover:text-peps-rose-orange underline">✨ Programme ✨ Suivi ✨ Révision ✨ Évaluation ✨ Graduate Gestionnaire de Paie ✨</a> (Objectif: Certification Gestionnaire de Paie)</p>
                             </div>
                         </div>
                     </div>
@@ -2146,14 +2091,6 @@
         let activePopup = null; // Declare activePopup in a higher scope
 
         document.addEventListener('DOMContentLoaded', function() {
-            // Logic for header menu toggle
-            const menuToggle = document.getElementById('menu-toggle');
-            const headerNav = document.getElementById('header-nav');
-
-            menuToggle.addEventListener('click', () => {
-                headerNav.classList.toggle('active');
-            });
-
             // Logic for anchor link scrolling
             const navLinks = document.querySelectorAll('.header-nav a');
             navLinks.forEach(link => {
@@ -2163,11 +2100,6 @@
                     const targetElement = document.querySelector(targetId);
                     if (targetElement) {
                         targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
-
-                    // Close mobile menu if open
-                    if (headerNav.classList.contains('active')) {
-                        headerNav.classList.remove('active');
                     }
                 });
             });
