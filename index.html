@@ -1,0 +1,2386 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mathilde Martine PAISLEY – Partenaire Stratégique RH, Paie & Transformation Digitale</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Chart.js CDN (keeping it in case it's used elsewhere, though radar chart was removed from presentation) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+    <style>
+        /* Base styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fdfbf7; /* blanc cassé doux */
+            color: #4a4a4a; /* gris foncé */
+            display: flex;
+            flex-direction: column; /* Organise le contenu en colonne pour header/main/footer */
+            min-height: 100vh;
+        }
+        .container-main {
+            background-color: #ffffff; /* blanc pur */
+            border: 1px solid #d8c4b7; /* beige-brun */
+            border-radius: 0.75rem; /* rounded-lg */
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25); /* shadow plus prononcé */
+            position: relative; /* Needed for skill popups positioning */
+            flex-grow: 1; /* Permet au contenu principal de prendre l'espace disponible */
+            margin: 1rem auto; /* Centre le conteneur principal avec marge */
+            width: 100%;
+            padding: 1.5rem; /* Padding interne */
+        }
+        .section-title {
+            color: #0A2342; /* Bleu nuit brillant pour les titres */
+            font-weight: 800;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Header styles */
+        .main-header {
+            background: linear-gradient(90deg, #FF6B6B, #FF8C00, #D4AF37, #0A2342); /* Dégradé de couleurs */
+            background-size: 200% 200%;
+            animation: gradient-animation 10s ease infinite; /* Animation plus lente */
+            color: white;
+            padding: 0.75rem 1.5rem; /* Padding réduit pour un header plus fin */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 0;
+            z-index: 50; /* S'assure que le header reste au-dessus */
+        }
+        .header-content-wrapper {
+            max-width: 5xl;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column; /* Par défaut en colonne pour mobile */
+            align-items: flex-start; /* Aligné à gauche */
+            position: relative; /* Pour positionner le menu burger */
+        }
+        @media (min-width: 1024px) { /* lg breakpoint for wider screens */
+            .header-content-wrapper {
+                flex-direction: row; /* En ligne pour desktop */
+                justify-content: space-between; /* Espacement entre nom/métier et nav */
+                align-items: center;
+            }
+        }
+        .header-info {
+            text-align: left; /* Aligné à gauche */
+            margin-bottom: 0.5rem; /* Espace sous le métier sur mobile */
+        }
+        @media (min-width: 1024px) {
+            .header-info {
+                margin-bottom: 0; /* Pas d'espace sur desktop */
+            }
+        }
+        .header-name {
+            font-size: 1.25rem; /* Plus petit pour le nom (text-xl) */
+            font-weight: 900;
+            white-space: nowrap; /* Empêche le nom de se couper */
+        }
+        .header-job-title {
+            font-size: 0.875rem; /* Plus petit pour le métier (text-sm) */
+            font-weight: 600;
+            opacity: 0.9;
+            white-space: nowrap; /* Empêche le métier de se couper */
+        }
+        .header-nav {
+            display: flex; /* Toujours affiché */
+            flex-direction: column; /* Onglets en colonne pour le menu burger */
+            width: 100%;
+            gap: 0.25rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+        @media (min-width: 1024px) {
+            .header-nav {
+                flex-direction: row; /* Onglets en ligne sur desktop */
+                flex-wrap: nowrap; /* Sur une seule ligne sur desktop */
+                overflow-x: auto; /* Défilement horizontal si trop d'onglets */
+                -webkit-overflow-scrolling: touch;
+                padding-bottom: 0;
+                border-top: none;
+                width: auto;
+                justify-content: flex-end; /* Aligné à droite sur desktop */
+            }
+        }
+        .menu-toggle {
+            display: block; /* Affiché par défaut sur mobile */
+            font-size: 1.5rem;
+            color: white;
+            cursor: pointer;
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+        }
+        @media (min-width: 1024px) {
+            .menu-toggle {
+                display: none; /* Caché sur desktop */
+            }
+        }
+        /* Keyframe animation for animated titles */
+        @keyframes gradient-animation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Footer styles */
+        .main-footer {
+            background: linear-gradient(90deg, #FF6B6B, #FF8C00, #D4AF37, #0A2342); /* Dégradé de couleurs identique au header */
+            background-size: 200% 200%;
+            animation: gradient-animation 10s ease infinite; /* Animation plus lente */
+            color: white;
+            padding: 1.5rem; /* Padding réduit pour un footer plus fin */
+            text-align: center;
+            box-shadow: 0 -4px 15px rgba(0,0,0,0.1);
+            margin-top: auto; /* Pousse le footer en bas */
+        }
+        .footer-text {
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem; /* Espace réduit */
+        }
+        .footer-contact-info {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        /* Accordion styles (experiences, engagement) */
+        .accordion-header {
+            background-color: #ffffff; /* blanc pur */
+            color: #0A2342; /* Bleu nuit brillant */
+            border: 1px solid #e9e2de; /* beige très clair */
+            border-radius: 0.5rem; /* rounded-md */
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        .accordion-header.active {
+            background-color: #FF6B6B; /* Rose Orange */
+            color: white; /* blanc */
+            border-color: #FF6B6B;
+        }
+        .accordion-content {
+            background-color: #ffffff; /* blanc pur */
+            border: 1px solid #e9e2de; /* beige très clair */
+            border-top: none;
+            border-radius: 0 0 0.5rem 0.5rem; /* rounded-b-md */
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.5s ease-out; /* Plus doux */
+        }
+
+        /* Tab navigation styles - Modernized to "pill" shape */
+        .tab-button {
+            padding: 0.4rem 0.8rem; /* Plus petit pour les onglets du header */
+            font-weight: 600;
+            border-radius: 9999px; /* Pill shape */
+            background-color: rgba(255, 255, 255, 0.2); /* Fond semi-transparent pour les onglets du header */
+            color: white; /* Texte blanc pour les onglets du header */
+            transition: all 0.3s ease;
+            margin: 0.15rem; /* Espace encore plus réduit */
+            border: none;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1); /* Ombre plus légère */
+            flex-shrink: 0;
+            white-space: nowrap; /* Empêche le texte de se couper */
+        }
+        .tab-button.active {
+            background-color: white; /* Blanc pour l'onglet actif */
+            color: #0A2342; /* Bleu nuit pour le texte de l'onglet actif */
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2); /* Ombre plus prononcée pour actif */
+        }
+        .tab-button:hover:not(.active) {
+            background-color: rgba(255, 255, 255, 0.4); /* Plus opaque au survol */
+            color: white; /* Texte blanc au survol */
+        }
+
+        /* Accent colors */
+        .accent-bronze {
+            color: #D4AF37; /* Bronze doré */
+        }
+        .bg-accent-bronze {
+            background-color: #D4AF37; /* Bronze doré */
+        }
+        .border-accent-bronze {
+            border-color: #D4AF37; /* Bronze doré */
+        }
+        .text-accent-blue {
+            color: #0A2342; /* Bleu nuit brillant */
+        }
+        .text-peps-rose-orange {
+            color: #FF6B6B; /* Rose Orange */
+        }
+        .bg-peps-rose-orange {
+            background-color: #FF6B6B;
+        }
+        .text-peps-rouge-jaune {
+            color: #FF8C00; /* Rouge Jaune/Orange */
+        }
+        .bg-peps-rouge-jaune {
+            background-color: #FF8C00;
+        }
+
+        /* Custom scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px; /* Hauteur pour les scrollbars horizontales */
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d8c4b7;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #bfa899;
+        }
+
+        /* Keyframe animations for intro */
+        @keyframes slideInFromLeft {
+            0% { transform: translateX(-100%); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slideInFromRight {
+            0% { transform: translateX(100%); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        @keyframes blinkEffect {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .animated-name {
+            animation: slideInFromLeft 1s ease-out forwards;
+            animation-delay: 0.2s;
+            opacity: 0; /* Start hidden */
+        }
+        .animated-title {
+            animation: slideInFromRight 1s ease-out forwards;
+            animation-delay: 0.7s;
+            opacity: 0; /* Start hidden */
+        }
+        .animated-blink {
+            animation: blinkEffect 1.5s infinite alternate;
+        }
+
+        /* Vertical Text Carousel */
+        .text-carousel-container {
+            height: 100px; /* Reduced height for the carousel container */
+            overflow: hidden;
+            position: relative;
+            margin: 2rem auto;
+            border: 2px solid #D4AF37; /* Bronze doré */
+            border-radius: 0.75rem;
+            padding: 1rem;
+            background-color: #fdfbf7;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+            display: flex; /* Added flexbox for vertical centering */
+            align-items: center; /* Center items vertically */
+            justify-content: center; /* Center items horizontally */
+        }
+        .text-carousel-item {
+            position: absolute;
+            width: calc(100% - 2rem);
+            top: 50%; /* Center vertically */
+            left: 1rem;
+            transform: translateY(-50%) translateX(0); /* Adjust for vertical centering */
+            text-align: center;
+            opacity: 0;
+            transition: opacity 1s ease-in-out, transform 1s ease-in-out; /* Added transform transition */
+            font-size: 1.1rem;
+            line-height: 1.5;
+            font-weight: 600;
+        }
+        .text-carousel-item.active {
+            opacity: 1;
+            transform: translateY(-50%) translateX(0); /* Keep centered when active */
+        }
+        .text-carousel-item.exit-up {
+            transform: translateY(-150%) translateX(0); /* Move further up when inactive */
+            opacity: 0;
+        }
+        .text-carousel-item.enter-down {
+            transform: translateY(50%) translateX(0); /* Move from slightly below when inactive */
+            opacity: 0;
+        }
+        /* Dynamic colors for carousel items */
+        .text-carousel-item[data-color="rose"] { color: #FF6B6B; }
+        .text-carousel-item[data-color="yellow"] { color: #FFD700; }
+        .text-carousel-item[data-color="orange"] { color: #FF8C00; }
+        .text-carousel-item[data-color="violet"] { color: #8A2BE2; }
+        .text-carousel-item[data-color="fuchsia"] { color: #FF00FF; }
+        .text-carousel-item[data-color="bordeaux"] { color: #800020; }
+
+
+        /* Timeline styles */
+        .timeline {
+            position: relative;
+            margin: 0 auto;
+            padding: 1em 0;
+            list-style: none;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: #e9e2de; /* Beige très clair */
+            left: 50%;
+            margin-left: -2px;
+        }
+        .timeline-item {
+            margin-bottom: 20px;
+            position: relative;
+            width: 50%;
+            padding: 10px 40px;
+        }
+        .timeline-item.left {
+            left: 0;
+        }
+        .timeline-item.right {
+            left: 50%;
+        }
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            right: -9px;
+            background-color: #D4AF37; /* Bronze doré */
+            border: 3px solid #fdfbf7; /* blanc cassé doux */
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        .timeline-item.right::after {
+            left: -9px;
+        }
+        .timeline-item-content {
+            padding: 20px 30px;
+            background: #ffffff;
+            position: relative;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            border: 1px solid #d8c4b7; /* beige-brun */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            /* New: Add background gradients for timeline items */
+        }
+        /* Specific gradients for timeline items */
+        .timeline-item-content.gradient-1 { background: linear-gradient(45deg, #fdfbf7, #e9e2de); } /* Light beige */
+        .timeline-item-content.gradient-2 { background: linear-gradient(45deg, #fdfbf7, #fff0e0); } /* Light orange tint */
+        .timeline-item-content.gradient-3 { background: linear-gradient(45deg, #fdfbf7, #e0f2f7); } /* Light blue tint */
+        .timeline-item-content.gradient-4 { background: linear-gradient(45deg, #fdfbf7, #f0e6ff); } /* Light purple tint */
+        .timeline-item-content.gradient-5 { background: linear-gradient(45deg, #fdfbf7, #fffbe0); } /* Light yellow tint */
+        .timeline-item-content.gradient-6 { background: linear-gradient(45deg, #fdfbf7, #e0f7e0); } /* Light green tint */
+
+
+        .timeline-item-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        }
+        .timeline-item-content h3 {
+            color: #0A2342; /* Bleu nuit brillant */
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .timeline-item-content .date {
+            color: #FF6B6B; /* Rose Orange */
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        .timeline-item-content .role {
+            font-weight: 500;
+            color: #4a4a4a;
+        }
+        .timeline-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+            background-color: #fdfbf7; /* blanc cassé doux */
+            border-top: 1px solid #e9e2de;
+            padding-top: 0; /* Adjusted for accordion behavior */
+            margin-top: 15px;
+        }
+        .timeline-details.active {
+            max-height: var(--content-height, 500px); /* Use CSS variable for dynamic height */
+            padding-top: 15px; /* Add padding when active */
+        }
+        @media screen and (max-width: 768px) {
+            .timeline::before {
+                left: 10px;
+            }
+            .timeline-item {
+                width: 100%;
+                padding-left: 50px;
+                padding-right: 10px;
+            }
+            .timeline-item.right {
+                left: 0;
+            }
+            .timeline-item::after, .timeline-item.right::after {
+                left: 1px;
+                margin-left: -5px;
+            }
+            .timeline-item-content {
+                transform: translateX(0) !important; /* Reset transform for smaller screens */
+            }
+        }
+
+        /* Formations - Badges / Achievements style */
+        .formation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        .formation-badge {
+            background: linear-gradient(135deg, #0A2342 0%, #304E78 100%); /* Bleu nuit gradient */
+            color: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transform: scale(1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        .formation-badge:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        .badge-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: #D4AF37; /* Bronze doré */
+        }
+        .badge-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            color: #D4AF37; /* Bronze doré */
+        }
+        .badge-subtitle {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+        .badge-date {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+        .badge-skills-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 1rem;
+            text-align: left;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            max-height: 0; /* Hidden by default */
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+        }
+        .badge-skills-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .badge-skills-list li::before {
+            content: '✔️';
+            position: absolute;
+            left: 0;
+            color: #FF8C00; /* Rouge Jaune/Orange */
+        }
+        .formation-badge.active .badge-skills-list {
+            max-height: var(--badge-content-height, 300px); /* Use CSS variable for dynamic height */
+        }
+        .formation-badge .toggle-icon {
+            font-size: 2rem;
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            color: #FF6B6B; /* Rose Orange */
+            transition: transform 0.3s ease;
+        }
+        .formation-badge.active .toggle-icon {
+            transform: rotate(45deg);
+        }
+
+        /* Skills - Interconnected Blocks / Visual Clusters */
+        .competence-section { /* Renamed from skill-box for user's code */
+            width: 100%; /* Ensure it takes full grid column width */
+            border-radius: 12px;
+            padding: 25px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Added transition */
+            /* New: Add background gradients for competence sections */
+        }
+        /* Specific gradients for competence sections */
+        .competence-section.section-1 { background: linear-gradient(45deg, #fdfbf7, #e9e2de); } /* Light beige */
+        .competence-section.section-2 { background: linear-gradient(45deg, #fdfbf7, #fff0e0); } /* Light orange tint */
+        .competence-section.section-3 { background: linear-gradient(45deg, #fdfbf7, #e0f2f7); } /* Light blue tint */
+        .competence-section.section-4 { background: linear-gradient(45deg, #fdfbf7, #f0e6ff); } /* Light purple tint */
+        .competence-section.section-5 { background: linear-gradient(45deg, #fdfbf7, #fffbe0); } /* Light yellow tint */
+
+
+        .competence-section:hover { /* Added hover effect */
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+        .competence-section h2 { /* Adapted from user's h2 style */
+            font-size: 1.6em;
+            color: #0A2342; /* Bleu nuit brillant */
+            margin-top: 0;
+            margin-bottom: 15px;
+            border-bottom: 2px solid;
+            padding-bottom: 10px;
+            text-align: center; /* Centered titles */
+        }
+        .competence-section ul {
+            list-style-type: none;
+            padding-left: 0;
+            margin: 0;
+        }
+        .competence-section li {
+            margin: 8px 0;
+            line-height: 1.6;
+            position: relative;
+            padding-left: 25px;
+            text-align: left; /* Ensure left alignment */
+        }
+        .competence-section li::before {
+            content: '✨';
+            position: absolute;
+            left: 0;
+            color: #D4AF37; /* Bronze doré */
+        }
+        .competence-section b {
+            color: #FF6B6B; /* Rose Orange for bold text */
+        }
+
+        /* Specific border colors adapted to theme */
+        /* These will now be on top of the gradients, still providing accent */
+        .competence-section.section-1 h2 { border-bottom-color: #FF6B6B; } /* Rose Orange */
+        .competence-section.section-2 h2 { border-bottom-color: #0A2342; } /* Bleu nuit brillant */
+        .competence-section.section-3 h2 { border-bottom-color: #D4AF37; } /* Bronze doré */
+        .competence-section.section-4 h2 { border-bottom-color: #FF8C00; } /* Rouge Jaune/Orange */
+        .competence-section.section-5 h2 { border-bottom-color: #FF6B6B; } /* Rose Orange */
+
+
+        /* Information Personnelles - Dynamic Cards with Illustrations */
+        .info-category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        .info-dynamic-card {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 2px solid transparent;
+            min-height: 250px; /* Ensure cards have similar height */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .info-dynamic-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+            border-color: #FF6B6B; /* Rose Orange au survol */
+        }
+        .info-dynamic-card.langues { background: linear-gradient(45deg, #fdfbf7, #e9e2de); }
+        .info-dynamic-card.gourmande { background: linear-gradient(45deg, #fdfbf7, #fff0e0); } /* Light orange tint */
+        .info-dynamic-card.musicale { background: linear-gradient(45deg, #fdfbf7, #e0f2f7); } /* Light blue tint */
+        .info-dynamic-card.danse { background: linear-gradient(45deg, #fdfbf7, #f0e6ff); } /* Light purple tint */
+        .info-dynamic-card.innovation { background: linear-gradient(45deg, #fdfbf7, #fffbe0); } /* Light yellow tint */
+        .info-dynamic-card.lecture { background: linear-gradient(45deg, #fdfbf7, #e0f7e0); } /* Light green tint for reading */
+        .info-dynamic-card.engagement-communaute { background: linear-gradient(45deg, #fdfbf7, #e0f2f7); } /* Light blue tint for engagement */
+
+
+        .info-card-large-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: #FF8C00; /* Rouge Jaune/Orange */
+            display: block;
+            position: relative;
+            z-index: 1;
+        }
+        .info-card-header-title {
+            font-weight: 800;
+            color: #0A2342; /* Bleu nuit brillant */
+            margin-bottom: 0.75rem;
+            font-size: 1.6rem;
+        }
+        .info-card-text {
+            color: #4a4a4a;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        .info-card-overlay-shape {
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            width: 100px;
+            height: 100px;
+            background-color: rgba(212, 175, 55, 0.2); /* Bronze doré translucide */
+            border-radius: 50%;
+            z-index: 0;
+            transition: all 0.5s ease;
+        }
+        .info-dynamic-card:hover .info-card-overlay-shape {
+            transform: scale(1.5);
+            opacity: 0;
+        }
+
+        /* Engagement Community Accordion */
+        .community-accordion-item {
+            background-color: #ffffff;
+            border: 1px solid #e9e2de;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        .community-accordion-item:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .community-accordion-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.5rem;
+            font-weight: 700;
+            color: #0A2342; /* Bleu nuit brillant */
+            cursor: pointer;
+            border-bottom: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+        .community-accordion-header.active {
+            color: #FF6B6B; /* Rose Orange */
+            border-bottom-color: #FF6B6B;
+        }
+        .community-accordion-header .icon {
+            font-size: 1.5rem;
+            margin-right: 0.75rem;
+            color: #D4AF37; /* Bronze doré */
+        }
+        .community-accordion-header.active .icon {
+            color: #FF6B6B; /* Rose Orange */
+        }
+        .community-accordion-content {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+            color: #4a4a4a;
+            line-height: 1.6;
+        }
+        .community-accordion-content.active {
+            max-height: var(--community-content-height, 200px); /* Adjust based on content */
+            padding-bottom: 1.5rem;
+        }
+        .community-accordion-content p {
+            margin-bottom: 0.5rem;
+        }
+        .community-accordion-content b {
+            color: #0A2342; /* Bleu nuit brillant */
+        }
+
+        /* Social Media Logos */
+        .social-logo-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 150px; /* Increased width for text */
+            height: 50px; /* Fixed height for circle */
+            border-radius: 9999px; /* Pill shape */
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+            text-decoration: none;
+            margin: 0 0.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        .social-logo-button:hover {
+            transform: translateY(-5px) scale(1.05); /* Slight bounce and scale */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            animation: bounce 0.6s infinite alternate; /* Bouncing animation */
+        }
+        .social-logo-button.whatsapp {
+            background-color: #25D366; /* WhatsApp Green */
+        }
+        .social-logo-button.discord {
+            background-color: #7289DA; /* Discord Purple */
+        }
+        /* Bouncing animation */
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0) scale(1.05); }
+            50% { transform: translateY(-5px) scale(1.1); }
+        }
+
+        /* START NEW Contact Section Styles - Directly from user's provided code, adapted for existing font */
+        .contact-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+            padding: 40px;
+            background-color: #ffffff; /* Use existing background */
+            border-radius: 25px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1); /* Use existing shadow */
+            width: 100%;
+            max-width: 700px; /* Increased max-width for horizontal expansion */
+            margin: 0 auto;
+            /* Increased vertical padding for more space */
+            padding-top: 60px;
+            padding-bottom: 60px;
+        }
+
+        .contact-header { /* Renamed from .header to avoid conflict */
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .contact-pre-title { /* Renamed from .pre-title to avoid conflict */
+            font-family: 'Inter', sans-serif; /* Adjusted to Inter */
+            font-size: 2.5em; /* Adjusted size slightly */
+            font-weight: 800; /* Adjusted weight */
+            letter-spacing: 1px;
+            margin: 0;
+            /* Using a gradient that aligns with your current CV theme colors */
+            background: linear-gradient(45deg, #FF6B6B, #FF8C00, #D4AF37, #0A2342); /* Rose, Orange, Bronze, Bleu Nuit */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+            animation: bounceIn 1.5s cubic-bezier(0.2, 0.6, 0.4, 1.2) forwards;
+        }
+
+        @keyframes bounceIn { /* Moved animation here for clarity with .contact-pre-title */
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .contact-title { /* Renamed from .title to avoid conflict */
+            font-family: 'Inter', sans-serif; /* Adjusted to Inter */
+            font-size: 1.6em;
+            font-weight: 600; /* Adjusted weight */
+            color: #0A2342; /* Bleu nuit brillant */
+            margin-top: 10px;
+        }
+
+        .contact-cards-grid { /* Renamed from .contact-cards to avoid conflict */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .contact-card { /* Renamed from .card to avoid conflict */
+            width: 100%;
+            max-width: 600px; /* Adjusted max-width for individual cards to still fit within container */
+            padding: 2px;
+            border-radius: 20px;
+            position: relative;
+            z-index: 1;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            /* New: Add background gradients for contact cards */
+        }
+        /* Specific gradients for contact cards - Adjusted colors to remove green */
+        .contact-card.card-phone .contact-card-content { background: linear-gradient(45deg, #fdfbf7, #ffe0e0); } /* Light rose tint */
+        .contact-card.card-email .contact-card-content { background: linear-gradient(45deg, #fdfbf7, #fffbe0); } /* Light yellow tint */
+        .contact-card.card-address .contact-card-content { background: linear-gradient(45deg, #fdfbf7, #e0f2f7); } /* Light blue tint */
+        
+        .contact-card::before { /* Gradient border */
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 20px;
+            padding: 3px;
+            background: linear-gradient(45deg, #FF6B6B, #FF8C00, #D4AF37, #0A2342); /* Rose, Orange, Bronze, Bleu Nuit */
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            z-index: -1;
+        }
+
+        .contact-card-content { /* Renamed from .card-content to avoid conflict */
+            padding: 30px;
+            background-color: #ffffff; /* Default background, overridden by specific card gradients */
+            border-radius: 18px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .contact-link { /* Renamed from .link to avoid conflict */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: #4a4a4a; /* gris foncé from original CV body text */
+            text-shadow: none;
+        }
+
+        .contact-icon { /* Renamed from .icon to avoid conflict */
+            font-size: 3em;
+            margin-bottom: 15px;
+            color: #D4AF37; /* Bronze doré for icons */
+            transition: color 0.3s ease;
+        }
+
+        .contact-card:hover .contact-icon {
+            color: #FF6B6B; /* Rose Orange on hover */
+        }
+        
+        .contact-text-label { /* Renamed from .text-label to avoid conflict */
+            font-size: 1em;
+            font-weight: 400;
+            color: #616161; /* Darker grey for labels */
+            margin-bottom: 5px;
+        }
+        
+        .contact-text-value { /* Renamed from .text to avoid conflict */
+            font-size: 1.5em;
+            font-weight: 500;
+            white-space: normal;
+            overflow: visible;
+            text-overflow: clip;
+            transition: color 0.3s ease;
+        }
+
+        .contact-card:hover .contact-text-value {
+            color: #0A2342; /* Bleu nuit brillant on hover */
+        }
+        
+        @media (max-width: 768px) {
+            .contact-container {
+                padding: 40px 20px;
+                width: 95%;
+            }
+            .contact-pre-title {
+                font-size: 2.5em;
+            }
+            .contact-title {
+                font-size: 1.2em;
+            }
+            .contact-cards-grid {
+                gap: 20px;
+            }
+            .contact-card-content {
+                padding: 25px;
+            }
+            .contact-icon {
+                font-size: 2.5em;
+            }
+            .contact-text-value {
+                font-size: 1.3em;
+            }
+        }
+        /* END NEW Contact Section Styles */
+        /* New styles for Réalisations Clés */
+        .realisations-card {
+            background: linear-gradient(45deg, #fdfbf7, #e9e2de); /* Light beige gradient */
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .realisations-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        .realisations-card h3 {
+            color: #0A2342;
+            font-weight: 700;
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        .realisations-card h4 {
+            color: #FF6B6B;
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        .realisations-card ul {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 0.5rem;
+        }
+        .realisations-card ul li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.4rem;
+            line-height: 1.5;
+        }
+        .realisations-card ul li::before {
+            content: '✅'; /* Checkmark icon */
+            position: absolute;
+            left: 0;
+            color: #D4AF37;
+        }
+        .realisations-card ul ul li::before {
+            content: '➡️'; /* Arrow icon for nested lists */
+            color: #FF8C00;
+        }
+
+        /* Accordion-like structure for Réalisations Clés */
+        .realisations-accordion-item {
+            /* Using gradient classes for varied backgrounds */
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .realisations-accordion-item.gradient-1 { background: linear-gradient(45deg, #fdfbf7, #e9e2de); } /* Light beige */
+        .realisations-accordion-item.gradient-2 { background: linear-gradient(45deg, #fdfbf7, #fff0e0); } /* Light orange tint */
+        .realisations-accordion-item.gradient-3 { background: linear-gradient(45deg, #fdfbf7, #e0f2f7); } /* Light blue tint */
+        .realisations-accordion-item.gradient-4 { background: linear-gradient(45deg, #fdfbf7, #f0e6ff); } /* Light purple tint */
+        .realisations-accordion-item.gradient-5 { background: linear-gradient(45deg, #fdfbf7, #fffbe0); } /* Light yellow tint */
+        .realisations-accordion-item.gradient-6 { background: linear-gradient(45deg, #fdfbf7, #e0f7e0); } /* Light green tint */
+
+
+        .realisations-accordion-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        .realisations-accordion-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            margin-bottom: 1rem;
+        }
+        .realisations-accordion-header h3 {
+            color: #0A2342;
+            font-weight: 700;
+            font-size: 1.5rem;
+            margin: 0;
+            line-height: 1.3;
+        }
+        .realisations-accordion-header .period {
+            font-size: 0.9rem;
+            color: #FF6B6B;
+            font-weight: 600;
+            display: block;
+            margin-top: 0.25rem;
+        }
+        .realisations-accordion-toggle-icon {
+            font-size: 2rem;
+            color: #D4AF37;
+            transition: transform 0.3s ease;
+        }
+        .realisations-accordion-item.active .realisations-accordion-toggle-icon {
+            transform: rotate(45deg);
+        }
+        .realisations-accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+            padding-top: 0;
+        }
+        .realisations-accordion-item.active .realisations-accordion-content {
+            max-height: 1000px; /* Adjust as needed for content */
+            padding-top: 1rem;
+        }
+        .realisations-accordion-content h4 {
+            color: #FF6B6B;
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        .realisations-accordion-content ul {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 0.5rem;
+        }
+        .realisations-accordion-content ul li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.4rem;
+            line-height: 1.5;
+        }
+        .realisations-accordion-content ul li::before {
+            content: '✅'; /* Checkmark icon */
+            position: absolute;
+            left: 0;
+            color: #D4AF37;
+        }
+        .realisations-accordion-content ul ul li::before {
+            content: '➡️'; /* Arrow icon for nested lists */
+            color: #FF8C00;
+        }
+
+        /* Section Soft & Hard Skills (Intégré avec le nouveau design) */
+        .skills-section-container { /* Renamed to avoid conflict with main container */
+            padding: 0; /* Remove padding as it's handled by main container */
+            max-width: 100%; /* Take full width of parent tab */
+            width: 100%;
+            margin-left: 0; /* Remove margin */
+            margin-top: 0; /* Remove margin */
+            position: relative; /* For positioning popups */
+            /* overflow-x: hidden; */ /* Handled by main container */
+        }
+        /* Keyframe animation for animated titles */
+        @keyframes gradient-animation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .skills-section-title { /* Renamed for clarity */
+            color: #0A2342; /* Bleu nuit brillant pour les titres */
+            font-weight: 800;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+            text-align: center; /* Centered as per original CV */
+            margin-bottom: 2rem;
+            font-size: 2rem; /* Adjusted to match other section titles */
+        }
+        .skills-intro-text { /* Renamed for clarity */
+            text-align: center; /* Centered as per original CV */
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+            color: #616161;
+        }
+        .skills-intro-text b {
+            color: #FF6B6B; /* Rose Orange */
+        }
+
+        /* Styles for skill tags (pastilles) */
+        .skill-tags-container {
+            display: flex;
+            flex-wrap: wrap; /* Permet le retour à la ligne */
+            gap: 0.5rem; /* Espace réduit entre les tags */
+            justify-content: flex-start; /* Alignement à gauche pour les tags */
+            margin-top: 1rem;
+            padding-bottom: 0.5rem; /* Pour éviter que la scrollbar ne cache les tags */
+        }
+        /* Adjusted to add margin between cards */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Ensure grid is defined */
+            gap: 1.5rem; /* Gap between soft/hard skills cards */
+        }
+        .skill-card h3 {
+            font-size: 1.5rem; /* Plus gros */
+            font-weight: 800; /* Plus gras */
+            background: linear-gradient(45deg, #FF6B6B, #D4AF37, #0A2342); /* Dégradé de couleurs */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+            background-size: 200% 200%; /* Taille du dégradé pour l'animation */
+            animation: gradient-animation 4s ease infinite; /* Animation du dégradé */
+            text-align: left; /* Alignement à gauche */
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #d8c4b7; /* Ligne de séparation plus douce */
+            padding-bottom: 0.5rem;
+        }
+
+        .skill-tag {
+            width: auto; /* Largeur automatique pour le texte */
+            min-width: 80px; /* Largeur minimale pour les tags carrés */
+            height: 35px; /* Hauteur fixe pour les tags carrés */
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-radius: 0.5rem; /* Coins légèrement arrondis pour un aspect carré */
+            font-size: 0.85rem; /* Taille de police plus petite */
+            font-weight: 600;
+            color: white; /* Texte blanc sur fond coloré */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            position: relative;
+            cursor: pointer;
+            flex-shrink: 0;
+            overflow: hidden; /* Cache le texte débordant */
+        }
+
+        .skill-tag:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .skill-tag-text {
+            flex-grow: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            padding: 0 0.5rem; /* Padding interne pour le texte */
+        }
+
+        .skill-tag-toggle {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 0.3rem; /* Coins légèrement arrondis pour la croix */
+            width: 1.2rem;
+            height: 100%; /* Prend toute la hauteur du tag */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            flex-shrink: 0;
+            margin-left: auto; /* Pousse la croix à droite */
+        }
+        .skill-tag-toggle:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Harmonized colors for skill tags (Soft Skills) - Nouvelle palette */
+        .tag-soft-color-1 { background-color: #a8dadc; color: #0A2342; } /* Bleu clair doux */
+        .tag-soft-color-2 { background-color: #f7b267; color: #0A2342; } /* Orange doux */
+        .tag-soft-color-3 { background-color: #d4af37; color: white; } /* Bronze doré */
+        .tag-soft-color-4 { background-color: #e9ecef; color: #4a4a4a; } /* Gris très clair */
+
+        /* Harmonized colors for skill tags (Hard Skills) - Nouvelle palette */
+        .tag-hard-color-1 { background-color: #457b9d; color: white; } /* Bleu-gris */
+        .tag-hard-color-2 { background-color: #e63946; color: white; } /* Rouge terre */
+        .tag-hard-color-3 { background-color: #a8dadc; color: #0A2342; } /* Bleu clair doux */
+        .tag-hard-color-4 { background-color: #f7b267; color: #0A2342; } /* Orange doux */
+
+        /* Popup style */
+        .skill-popup {
+            position: absolute;
+            background-color: #ffffff;
+            border: none; /* Supprime la bordure du popup */
+            border-radius: 0.75rem; /* Coins arrondis pour le popup */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            padding: 1rem;
+            z-index: 20;
+            max-width: 300px;
+            min-width: 200px; /* Ajout d'une largeur minimale */
+            font-size: 0.9rem;
+            line-height: 1.5;
+            display: none; /* Hidden by default */
+            animation: fadeInPopup 0.3s ease-out forwards;
+            word-wrap: break-word; /* Ensure long text wraps */
+        }
+
+        .skill-popup.active {
+            display: block;
+        }
+
+        @keyframes fadeInPopup {
+            from { opacity: 0; transform: translateY(5px) scale(0.95); } /* Effet de rebondi léger */
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* Styles for info-dynamic-card (copied from .info-dynamic-card) */
+        .skill-card.soft-skills-bg {
+            background: linear-gradient(45deg, #fdfbf7, #e9e2de); /* Utilise le dégradé des langues/beige */
+            border: 2px solid transparent;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+        .skill-card.soft-skills-bg:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+            border-color: #FF6B6B; /* Rose Orange au survol */
+        }
+        .skill-card.hard-skills-bg {
+            background: linear-gradient(45deg, #fdfbf7, #fff0e0); /* Utilise le dégradé gourmande/orange */
+            border: 2px solid transparent;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+        .skill-card.hard-skills-bg:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+            border-color: #FF6B6B; /* Rose Orange au survol */
+        }
+
+        .skill-card .info-card-overlay-shape {
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            width: 100px;
+            height: 100px;
+            background-color: rgba(212, 175, 55, 0.2); /* Bronze doré translucide */
+            border-radius: 50%;
+            z-index: 0;
+            transition: all 0.5s ease;
+        }
+        .skill-card.soft-skills-bg:hover .info-card-overlay-shape,
+        .skill-card.hard-skills-bg:hover .info-card-overlay-shape {
+            transform: scale(1.5);
+            opacity: 0;
+        }
+
+        /* New section styles for single page layout */
+        .section-container {
+            margin-top: 3rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e9e2de;
+        }
+        
+        /* New styles for the main hero section with the title */
+        .hero-title-container {
+            background: linear-gradient(90deg, #60A5FA, #FDE047, #F472B6); /* Subtle blue, yellow, pink gradient */
+            background-size: 200% 200%;
+            animation: gradient-animation 10s ease infinite; /* Existing animation */
+            text-align: center;
+            padding: 3rem 1.5rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .hero-name {
+            font-size: 2.5rem;
+            font-weight: 900;
+            letter-spacing: -1px;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-job-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: white;
+            opacity: 0.9;
+            margin-top: 0.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .hero-name {
+                font-size: 4rem;
+            }
+            .hero-job-title {
+                font-size: 1.5rem;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="main-header">
+        <div class="header-content-wrapper">
+            <div class="header-info">
+                <p class="header-name">Mathilde Martine PAISLEY</p>
+                <p class="header-job-title">Partenaire Stratégique RH, Paie & Transformation Digitale</p>
+            </div>
+            <div class="menu-toggle" id="menu-toggle">☰</div>
+            <nav class="header-nav" id="header-nav">
+                <a class="tab-button" href="#presentation-section">Accueil & Profil</a>
+                <a class="tab-button" href="#experiences-section">Parcours Pro</a>
+                <a class="tab-button" href="#formations-section">Formations</a>
+                <a class="tab-button" href="#competences-section">Compétences</a>
+                <a class="tab-button" href="#informations-section">Infos Perso</a>
+                <a class="tab-button" href="#engagement-section">Engagement</a>
+                <a class="tab-button" href="#contact-section">Contact</a>
+                <a class="tab-button" href="#handicap-section">Handicap</a>
+                <a class="tab-button" href="#realisations-section">Réalisations</a>
+                <a class="tab-button" href="#skills-section">Soft & Hard Skills</a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- New Hero Section for the main title -->
+    <div class="hero-title-container">
+        <h1 class="hero-name">Mathilde Martine PAISLEY</h1>
+        <h2 class="hero-job-title">Partenaire Stratégique RH, Paie & Transformation Digitale</h2>
+    </div>
+
+    <div class="container-main max-w-5xl w-full mx-auto p-6 sm:p-10 rounded-lg">
+        <!-- Toutes les sections sont maintenant sur une seule page -->
+        
+        <!-- Section Présentation (Accueil & Profil) -->
+        <div id="presentation-section" class="section-container">
+            <h2 class="text-2xl sm:text-3xl font-bold section-title mb-4 text-center">Mon Profil en un Coup d'Œil</h2>
+            <div id="text-carousel" class="text-carousel-container">
+                <!-- Les éléments du carrousel seront générés par JavaScript -->
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center mt-8">
+                <div class="text-gray-700 leading-relaxed text-justify">
+                    <p class="mb-4">
+                        Je me positionne comme une <b class="text-peps-rose-orange">Partenaire Stratégique RH, Paie & Transformation Digitale</b>. Avec ma nouvelle certification de <b class="accent-bronze">Chief Digital Officer (CDO)</b>, j'apporte désormais une vision globale et une capacité à piloter la transformation numérique des organisations.
+                    </p>
+                    <p class="mb-4">
+                        J'accompagne les entreprises dans la traduction opérationnelle et réglementaire de leurs projets, en m'assurant que la paie et les enjeux RH soient pleinement compris et intégrés. <b class="text-peps-rose-orange">Acteur indispensable de la transformation digitale</b>, je définis et développe la stratégie digitale en intégrant les nouvelles technologies de communication.
+                    </p>
+                    <p class="mb-4">
+                        À la croisée du métier RH, de la maîtrise réglementaire et de la transformation digitale, je sécurise les projets pour qu’ils répondent réellement aux besoins du terrain et soutiennent la performance durable des équipes, en diffusant une <b class="accent-bronze">forte culture digitale</b>. Mon approche est à la fois stratégique, opérationnelle et centrée sur l'humain.
+                    </p>
+                    <p class="font-bold text-lg text-peps-rouge-jaune text-center mt-6">
+                        "La synergie entre l'humain et le digital est la clé d'une transformation réussie."
+                    </p>
+                </div>
+                <div class="flex justify-center items-center h-full">
+                    <img src="https://placehold.co/400x300/e9e2de/4a4a4a?text=Image+dynamique+ou+graphique" alt="Placeholder pour graphique dynamique" class="rounded-lg shadow-md max-w-full h-auto">
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Parcours Professionnel (Timeline) -->
+        <div id="experiences-section" class="section-container">
+            <h2 class="text-2xl sm:text-3xl font-bold section-title mb-8 text-center">Parcours Professionnel</h2>
+            <div class="timeline">
+                <!-- Expérience 1 -->
+                <div class="timeline-item left">
+                    <div class="timeline-item-content gradient-1">
+                        <button class="w-full text-left focus:outline-none timeline-toggle" data-target="exp-1">
+                            <h3 class="text-lg">Référente Fonctionnelle SIRH</h3>
+                            <p class="date">Déc. 2024 – Mai 2025</p>
+                            <p class="role">Nexpublica</p>
+                            <span class="text-peps-rouge-jaune text-2xl absolute right-4 top-4 transform -translate-y-1/2">+</span>
+                        </button>
+                        <div id="exp-1" class="timeline-details">
+                            <p><b class="font-semibold">Mon Rôle :</b> J'assurais l'adéquation entre les besoins du client et les fonctionnalités de l'outil Chronotime.</p>
+                            <p><b class="font-semibold">Mes Missions :</b> Accompagnement du client dans la définition de ses besoins et rédaction de spécifications fonctionnelles détaillées. Coordination avec les équipes projet (MOA, MOE, développeurs) pour garantir la bonne intégration des fonctionnalités et le respect des attentes client.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Expérience 2 -->
+                <div class="timeline-item right">
+                    <div class="timeline-item-content gradient-2">
+                        <button class="w-full text-left focus:outline-none timeline-toggle" data-target="exp-2">
+                            <h3 class="text-lg">COORDONNATRICE SIRH / CHEFFE DE PROJET FONCTIONNELLE</h3>
+                            <p class="date">Sept. 2024 – Nov. 2024</p>
+                            <p class="role">Groupe Ponticelli Frères</p>
+                            <span class="text-peps-rouge-jaune text-2xl absolute left-4 top-4 transform -translate-y-1/2">+</span>
+                        </button>
+                        <div id="exp-2" class="timeline-details">
+                            <p><b class="font-semibold">Mon Rôle :</b> Je coordonnais la finalisation d'un projet de transformation SIRH, en assurant le lien entre les équipes métier et l'intégrateur.</p>
+                            <p><b class="font-semibold">Mes Missions :</b> Supervision de la recette fonctionnelle (planification, scripts, suivi des tests). Participation active aux réunions de pilotage (COPROJ/COOPIR) et coordination inter-pôles (RH, DSI) pour la formalisation de mes besoins métiers sur SAP SuccessFactors EC & Time. Support utilisateur sur les modules SAP SuccessFactors EC & Time lors des phases de tests.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Expérience 3 -->
+                <div class="timeline-item left">
+                    <div class="timeline-item-content gradient-3">
+                        <button class="w-full text-left focus:outline-none timeline-toggle" data-target="exp-3">
+                            <h3 class="text-lg">Consultante Fonctionnelle Paie / AMOA SIRH</h3>
+                            <p class="date">Janv. 2023 - Juin 2024</p>
+                            <p class="role">CGI</p>
+                            <span class="text-peps-rouge-jaune text-2xl absolute right-4 top-4 transform -translate-y-1/2">+</span>
+                        </button>
+                        <div id="exp-3" class="timeline-details">
+                            <p><b class="font-semibold">Mon Rôle :</b> J'accompagnais deux clients sur la sécurisation et la modernisation de leurs processus Paie et SIRH, notamment sur HR Access.</p>
+                            <p class="font-semibold mt-2">Projet 1 : Actualisation réglementaire et sécurisation des données</p>
+                            <p><b class="font-semibold">Mes Missions :</b> Actualisation et validation d'un "livre blanc" réglementaire sur HR Access. Audit des rubriques de paie, recueil des besoins et accompagnement au changement.</p>
+                            <p class="font-semibold mt-2">Projet 2 : Déploiement d'un outil Paie et DSN</p>
+                            <p><b class="font-semibold">Mes Missions :</b> Formation des agents utilisateurs à la prise en main de l'outil HR Access. Création de scripts et de scénarios de tests pour la validation de la DSN. Gestion du support et du suivi des anomalies pour la mise en production.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Expérience 4 -->
+                <div class="timeline-item right">
+                    <div class="timeline-item-content gradient-4">
+                        <button class="w-full text-left focus:outline-none timeline-toggle" data-target="exp-4">
+                            <h3 class="text-lg">CHARGÉE RH – COORDINATION PAIE & ADMIN. RH</h3>
+                            <p class="date">Juil. 2022 – Déc. 2022</p>
+                            <p class="role">Talent Solutions</p>
+                            <span class="text-peps-rouge-jaune text-2xl absolute left-4 top-4 transform -translate-y-1/2">+</span>
+                        </button>
+                        <div id="exp-4" class="timeline-details">
+                            <p><b class="font-semibold">Mon Rôle :</b> J'étais responsable de la gestion de la paie et de l'administration du personnel pour plusieurs entités.</p>
+                            <p><b class="font-semibold">Mes Missions :</b> Mise en œuvre de solutions pour améliorer l’efficacité des processus de paie et administratifs. Transfert de compétences et mise en place de pratiques de mentorat pour les équipes. Gestion complète de la paie pour 4 entités et 350 collaborateurs sur Cegid PeopleNet GA et VSA.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Expérience 5 -->
+                <div class="timeline-item left">
+                    <div class="timeline-item-content gradient-5">
+                        <button class="w-full text-left focus:outline-none timeline-toggle" data-target="exp-5">
+                            <h3 class="text-lg">CONSULTANTE PAIE SIRH</h3>
+                            <p class="date">Nov. 2018 – Mars 2022</p>
+                            <p class="role">Epi-Use France</p>
+                            <span class="text-peps-rouge-jaune text-2xl absolute right-4 top-4 transform -translate-y-1/2">+</span>
+                        </button>
+                        <div id="exp-5" class="timeline-details">
+                            <p><b class="font-semibold">Mon Rôle :</b> J'apportais mon expertise pour accompagner un client dans la création de son Centre de Services Business (CSB).</p>
+                            <p><b class="font-semibold">Mes Missions :</b> Reprise et mise à jour des procédures de paie pour plus de 20 sites. Élaboration d'un livre blanc consolidant les pratiques standard. Rédaction de guides utilisateurs et animation d'ateliers de relecture et de mises en situation pour accompagner le changement RH. Conception et animation de formations pour les gestionnaires et responsables locaux.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Expérience consolidée Chargé(e) de Paie -->
+                <div class="timeline-item right">
+                    <div class="timeline-item-content gradient-6">
+                        <button class="w-full text-left focus:outline-none timeline-toggle" data-target="exp-paie-consolidated">
+                            <h3 class="text-lg">Chargé(e) de Paie (Multi-expériences)</h3>
+                            <p class="date">Sept. 2004 – Oct. 2018</p>
+                            <p class="role">Diverses entreprises (Sanofi, ADP GSI, Nexans, Publicis...)</p>
+                            <span class="text-peps-rouge-jaune text-2xl absolute left-4 top-4 transform -translate-y-1/2">+</span>
+                        </button>
+                        <div id="exp-paie-consolidated" class="timeline-details">
+                            <p class="font-semibold">Mon Rôle Principal :</p>
+                            <p>Gestion globale de la paie et de l'administration du personnel pour des entreprises de divers secteurs, avec une forte expertise sur les spécificités liées à de nombreuses conventions collectives.</p>
+                            <h4 class="font-bold text-lg text-peps-rose-orange mt-4">Détails des expériences :</h4>
+                            <ul class="list-disc list-inside ml-4 space-y-2">
+                                <li><b>Chargé de Paie</b> - Mai 2018 - Octobre 2018 - Paris La Défense
+                                    <ul class="list-disc list-inside ml-4">
+                                        <li>Mon Rôle : Gestion de la paie pour diverses entités.</li>
+                                        <li>Mes Missions : Traitement des paies, déclarations sociales, support aux collaborateurs.</li>
+                                    </ul>
+                                </li>
+                                <li><b>Chargée de Paie</b> - Avril 2017 - Avril 2018 - Nexans (92)
+                                    <ul class="list-disc list-inside ml-4">
+                                        <li>Mon Rôle : Gestion de la paie et administration du personnel.</li>
+                                        <li>Mes Missions : Suivi des dossiers, calcul des paies, conformité légale.</li>
+                                    </ul>
+                                </li>
+                                <li><b>Chargée de Paie (Multi-conventions)</b> - Septembre 2015 - Mars 2017 - ADP GSI France (92)
+                                    <ul class="list-disc list-inside ml-4">
+                                        <li>Mon Rôle : Gestion de la paie pour un portefeuille clients multi-conventions.</li>
+                                        <li>Mes Missions : Expertise multi-conventions, gestion des spécificités paie, conseil clients.</li>
+                                    </ul>
+                                </li>
+                                <li><b>Gestionnaire de Paie</b> - Octobre 2014 - Juillet 2015 - Sanofi (45)
+                                    <ul class="list-disc list-inside ml-4">
+                                        <li>Mon Rôle : Gestionnaire de paie au sein d'un grand groupe pharmaceutique.</li>
+                                        <li>Mes Missions : Préparation et vérification des paies, gestion des absences, interface RH.</li>
+                                    </ul>
+                                </li>
+                                <li><b>Gestionnaire de Paie</b> - Mars 2012 - Juin 2013 - SCC (92)
+                                    <ul class="list-disc list-inside ml-4">
+                                        <li>Mon Rôle : Gestion de la paie et des déclarations sociales.</li>
+                                        <li>Mes Missions : Traitement mensuel des paies, suivi des évolutions légales, reporting.</li>
+                                    </ul>
+                                </li>
+                                <li><b>Gestionnaire de Paie</b> - Janvier 2012 - Février 2012 - Alcoa Howmet (92)
+                                    <ul class="list-disc list-inside ml-4">
+                                        <li>Mon Rôle : Intérim en gestion de paie.</li>
+                                        <li>Mes Missions : Support temporaire sur les processus de paie.</li>
+                                    </ul>
+                                </li>
+                                <li><b>Gestionnaire de Paie</b> - Octobre 2011 - Décembre 2011 - Gérard Darel (75)
+                                    <ul class="list-disc list-inside ml-4">
+                                        <li>Mon Rôle : Gestion de la paie pour le secteur du prêt-à-porter.</li>
+                                        <li>Mes Missions : Traitement des salaires, gestion des spécificités du secteur.</li>
+                                    </ul>
+                                </li>
+                                <li><b>Gestionnaire de Paie</b> - Août 2011 - Septembre 2011 - Beckman Coulter (95)
+                                    <ul class="list-disc list-inside ml-4">
+                                        <li>Mon Rôle : Support en gestion de paie.</li>
+                                        <li>Mes Missions : Assistance sur les opérations de paie.</li>
+                                    </ul>
+                                </li>
+                                <li><b>Gestionnaire de Paie</b> - Mars 2011 - Juillet 2011 - Publicis (92)
+                                    <ul class="list-disc list-inside ml-4">
+                                        <li>Mon Rôle : Gestion de la paie au sein d'une agence de communication.</li>
+                                        <li>Mes Missions : Traitement des paies, gestion des spécificités du secteur.</li>
+                                    </ul>
+                                </li>
+                                <li><b>Gestionnaire de Paie</b> - Mai 2010 - Janvier 2011 - Sanofi-Aventis (60)
+                                    <ul class="list-disc list-inside ml-4">
+                                        <li>Mon Rôle : Gestionnaire de paie pour le groupe pharmaceutique.</li>
+                                        <li>Mes Missions : Préparation et contrôle des paies, interface avec les RH.</li>
+                                    </ul>
+                                </li>
+                                <li><b>Gestionnaire de Paie</b> - Avril 2008 - Août 2009 - Finodim (75)
+                                    <ul class="list-circle list-inside ml-4">
+                                        <li>Mon Rôle : Gestion de la paie.</li>
+                                        <li>Mes Missions : Traitement des paies, gestion administrative.</li>
+                                    </ul>
+                                </li>
+                                <li><b>Gestionnaire de Paie</b> - Mars 2008 - Avril 2008 - Caisse d'épargne (78)
+                                    <ul class="list-circle list-inside ml-4">
+                                        <li>Mon Rôle : Intérim en gestion de paie.</li>
+                                        <li>Mes Missions : Support ponctuel sur les opérations de paie.</li>
+                                    </ul>
+                                </li>
+                                <li><b>Gestionnaire de Paie</b> - Septembre 2004 - Décembre 2005 - Pomme de Pain (Paris)
+                                    <ul class="list-circle list-inside ml-4">
+                                        <li>Mon Rôle : Gestion de la paie pour une chaîne de restauration.</li>
+                                        <li>Mes Missions : Traitement des paies, gestion des spécificités du secteur.</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Expérience DIRECTRICE DE CENTRE DE PROFIT (re-positionnée chronologiquement) -->
+                <div class="timeline-item left">
+                    <div class="timeline-item-content gradient-1">
+                        <button class="w-full text-left focus:outline-none timeline-toggle" data-target="exp-7">
+                            <h3 class="text-lg">DIRECTRICE DE CENTRE DE PROFIT</h3>
+                            <p class="date">Avril 2002 – Mars 2004</p>
+                            <p class="role">KFC</p>
+                            <span class="text-peps-rouge-jaune text-2xl absolute right-4 top-4 transform -translate-y-1/2">+</span>
+                        </button>
+                        <div id="exp-7" class="timeline-details">
+                            <p><b class="font-semibold">Mon Rôle :</b> Je pilotais la performance opérationnelle et commerciale d'un centre de profit en développant les compétences des équipes et en gérant activement le recrutement et l'intégration.</p>
+                            <p><b class="font-semibold">Mes Missions :</b> Encadrement et formation d'une équipe de 70 personnes pour assurer la performance. Participation active aux campagnes de recrutement et au processus d'intégration. Responsabilité du chiffre d’affaires et mise en place de procédures pour optimiser la performance.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Section Formations et Certifications (Badges / Achievements) -->
+        <div id="formations-section" class="section-container">
+            <h2 class="text-2xl sm:text-3xl font-bold section-title mb-8 text-center">Formations & Certifications</h2>
+            <div class="formation-grid">
+                <!-- Formation 1: CDO -->
+                <div class="formation-badge" data-target="skills-cdo">
+                    <span class="badge-icon">🏆</span>
+                    <h3 class="badge-title">Chief Digital Officer (CDO)</h3>
+                    <p class="badge-subtitle">Titre certifié (Niveau 7)</p>
+                    <p class="badge-date">Obtention : Mars 2025</p>
+                    <ul id="skills-cdo" class="badge-skills-list">
+                        <li>Définition et pilotage de la stratégie digitale</li>
+                        <li>Pilotage de la transformation numérique</li>
+                        <li>Conduite du changement, diffusion culture digitale</li>
+                        <li>Veille technologique, management de transition</li>
+                    </ul>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <!-- Formation 2: Manager Stratégique RH -->
+                <div class="formation-badge" data-target="skills-rh">
+                    <span class="badge-icon">🎖️</span>
+                    <h3 class="badge-title">Manager Stratégique RH</h3>
+                    <p class="badge-subtitle">Titre certifié (Niveau 7)</p>
+                    <p class="badge-date">Décembre 2023 - ESGRH Paris</p>
+                    <ul id="skills-rh" class="badge-skills-list">
+                        <li>Pilotage RH, optimisation des processus</li>
+                        <li>Gestion de la relation client/prestataire</li>
+                        <li>Veille sociale et juridique</li>
+                        <li>Coordination d'équipes multisites</li>
+                    </ul>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <!-- Formation 3: Paie, Droit Social -->
+                <div class="formation-badge" data-target="skills-paie">
+                    <span class="badge-icon">🎓</span>
+                    <h3 class="badge-title">Paie, Droit Social et Administration du Personnel</h3>
+                    <p class="badge-subtitle">Formation Spécialisée</p>
+                    <p class="badge-date">2013-2014 - M2i Paris</p>
+                    <ul id="skills-paie" class="badge-skills-list">
+                        <li>Gestion complète de la paie et DSN</li>
+                        <li>Conformité réglementaire</li>
+                        <li>Administration du personnel</li>
+                        <li>Expertise conventions collectives</li>
+                        </ul>
+                    <span class="toggle-icon">+</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Compétences Clés (Visual Clusters) -->
+        <div id="competences-section" class="section-container">
+            <h2 class="text-2xl sm:text-3xl font-bold section-title mb-8 text-center">Compétences Clés</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6"> <!-- Changement ici pour la grille 2x2 -->
+                <div class="competence-section section-1">
+                    <h2>Stratégie & Transformation Digitale</h2>
+                    <ul>
+                        <li>Définition et pilotage de la <b>Stratégie Digitale</b>.</li>
+                        <li>Orchestration du <b>Pilotage de la Transformation Numérique</b>.</li>
+                        <li>Conduite du <b>Changement</b> et adoption technologique.</li>
+                        <li>Diffusion d'une <b>Culture Digitale</b> forte.</li>
+                    </ul>
+                </div>
+                <div class="competence-section section-2">
+                    <h2>Gestion de Projet & Pilotage</h2>
+                    <ul>
+                        <li>Gestion de projets de <b>Recette et Mise en Production</b>.</li>
+                        <li><b>Support Utilisateurs</b>.</li>
+                        <li>Animation d'<b>Ateliers</b> et coordination d'équipes.</li>
+                        <li>Optimisation des <b>Processus RH, Paie & Administratifs</b>.</li>
+                        <li>Gestion de la <b>Relation Client/Prestataire</b>.</li>
+                    </ul>
+                </div>
+                <div class="competence-section section-3">
+                    <h2>Maîtrise Outils SIRH / Paie</h2>
+                    <ul>
+                        <li><b>SAP SuccessFactors</b> (EC, Time, Payroll, Performance).</li>
+                        <li><b>HR Access</b>.</li>
+                        <li><b>Cegid PeopleNet</b> (GA, VSA).</li>
+                        <li><b>Chronotime</b>, Workday, SAP HR.</li>
+                        <li><b>ADP Décidium, AS400, Spaietacle</b>.</li>
+                    </ul>
+                </div>
+                <div class="competence-section section-4">
+                    <h2>Droit Social & Administration du Personnel</h2>
+                    <ul>
+                        <li>Gestion de la <b>Paie</b> et de la <b>DSN</b>.</li>
+                        <li><b>Veille Sociale et Juridique</b> continue.</li>
+                        <li>Administration des <b>Dossiers Personnels</b>.</li>
+                        <li>Expertise en <b>Conventions Collectives</b>.</li>
+                        <li>Rédaction de <b>Livres Blancs Réglementaires</b>.</li>
+                    </ul>
+                </div>
+                <!-- Combined section for Outils Bureautiques & Collaboration - Reste seul en bas -->
+                <div class="competence-section col-span-1 md:col-span-2 section-5">
+                    <h2>Outils Bureautiques & Collaboration</h2>
+                    <div class="flex flex-wrap justify-center gap-4 mt-6">
+                        <span class="skill-tag-item">Suite Office 365</span>
+                        <span class="skill-tag-item">Environnement Google</span>
+                        <span class="skill-tag-item">Jira</span>
+                        <span class="skill-tag-item">Trello</span>
+                        <span class="skill-tag-item">Monday.com</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Informations Personnelles (Dynamic Cards with Illustrations) -->
+        <div id="informations-section" class="section-container">
+            <h2 class="text-2xl sm:text-3xl font-bold section-title mb-8 text-center">Infos Personnelles</h2>
+            <div class="info-category-grid">
+                <!-- Langues -->
+                <div class="info-dynamic-card langues">
+                    <div class="info-card-overlay-shape"></div>
+                    <span class="info-card-large-icon">🗣️</span>
+                    <h3 class="info-card-header-title">Langues</h3>
+                    <p class="info-card-text"><b class="skill-emphasis">Français</b> (langue maternelle)</p>
+                    <p class="info-card-text"><b class="skill-emphasis">Anglais</b> (A2 - compréhension technique)</p>
+                </div>
+
+                <!-- Création Gourmande -->
+                <div class="info-dynamic-card gourmande">
+                    <div class="info-card-overlay-shape"></div>
+                    <span class="info-card-large-icon">🍪</span>
+                    <h3 class="info-card-header-title">Création Gourmande</h3>
+                    <p class="info-card-text">J'organise des événements (traiteur, amuse-bouches) et je suis passionnée de pâtisserie.</p>
+                    <p class="info-card-text">Je suis spécialisée dans la création de recettes originales, notamment les cookies.</p>
+                </div>
+
+                <!-- Harmonie Musicale -->
+                <div class="info-dynamic-card musicale">
+                    <div class="info-card-overlay-shape"></div>
+                    <span class="info-card-large-icon">🎶</span>
+                    <h3 class="info-card-header-title">Harmonie Musicale</h3>
+                    <p class="info-card-text">Je suis passionnée de musique classique (piano), afro-antillaise (rétro 80's), et de variété (Michael Jackson, Madonna).</p>
+                </div>
+
+                <!-- Danse & Bien-être -->
+                <div class="info-dynamic-card danse">
+                    <div class="info-card-overlay-shape"></div>
+                    <span class="info-card-large-icon">💃</span>
+                    <h3 class="info-card-header-title">Danse & Bien-être</h3>
+                    <p class="info-card-text">Je pratique la danse (zouk, biguine, gwo ka, rock) et le sport avec un coach pour l'équilibre physique et mental.</p>
+                </div>
+                <!-- Nouvelle section Lecture -->
+                <div class="info-dynamic-card lecture">
+                    <div class="info-card-overlay-shape"></div>
+                    <span class="info-card-large-icon">📚</span>
+                    <h3 class="info-card-header-title">Passion pour la Lecture</h3>
+                    <p class="info-card-text">Je suis une adepte du développement personnel et de la spiritualité, des thèmes que j'explore à travers mes lectures :</p>
+                    <ul class="info-card-text list-disc list-inside mt-2 text-left mx-auto max-w-xs">
+                        <li>Avoir le courage de ne pas être aimé (2018)</li>
+                        <li>L'art subtil de s'en foutre (2017)</li>
+                        <li>Avoir le courage d'être heureux (2023)</li>
+                    </ul>
+                </div>
+
+                <!-- Innovation Connectée -->
+                <div class="info-dynamic-card innovation">
+                    <div class="info-card-overlay-shape"></div>
+                    <span class="info-card-large-icon">💡</span>
+                    <h3 class="info-card-header-title">Innovation Connectée (Veille CDO)</h3>
+                    <p class="info-card-text">Je suis en veille technologique constante (Apple, Android).</p>
+                    <p class="info-card-text">Je monte des PC et m'initie au codage (HTML, CSS, JavaScript).</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Engagement Communautaire -->
+        <div id="engagement-section" class="section-container">
+            <h2 class="text-2xl sm:text-3xl font-bold section-title mb-8 text-center">Engagement Communautaire</h2>
+            <div class="info-category-grid">
+                <div class="info-dynamic-card engagement-communaute lg:col-span-3"> <!-- Adjust span as needed for layout -->
+                    <div class="info-card-overlay-shape"></div>
+                    <span class="info-card-large-icon">🤝</span> <!-- Icône pour le handicap -->
+                    <h3 class="info-card-header-title">Créateur & Animateur de la communauté "Payroll Boss Elite Club" 👑</h3>
+                    <p class="info-card-text">
+                        <b>Période :</b> Aujourd'hui
+                    </p>
+                    <p class="info-card-text mt-2 text-justify">
+                        En parallèle de l'activité professionnelle, un engagement bénévole est dédié à l'accompagnement des professionnels en préparation de la certification de gestionnaire de paie. Création d'un espace d'entraide et de formation pratique, offrant un partage gratuit d'expertise pour une montée en compétence rapide et efficace.
+                    </p>
+                    <h4 class="font-bold text-lg text-peps-rose-orange mt-4">Réalisations & Compétences Clés :</h4>
+                    <div class="space-y-4 mt-4">
+                        <div class="community-accordion-item">
+                            <div class="community-accordion-header">
+                                <span class="icon">💬</span> Animation de communauté
+                                <span class="toggle-icon">+</span>
+                            </div>
+                            <div class="community-accordion-content">
+                                <p>Création et gestion d'un serveur Discord et d'un groupe WhatsApp pour des échanges quotidiens et une entraide mutuelle.</p>
+                            </div>
+                        </div>
+                        <div class="community-accordion-item">
+                            <div class="community-accordion-header">
+                                <span class="icon">🧑‍🏫</span> Pédagogie & Mentorat
+                                <span class="toggle-icon">+</span>
+                            </div>
+                            <div class="community-accordion-content">
+                                <p>Organisation de sessions pratiques (exercices, quiz, Q&A) sur des sujets clés (droit du travail, administration du personnel, paie) pour faciliter l'apprentissage.</p>
+                            </div>
+                        </div>
+                        <div class="community-accordion-item">
+                            <div class="community-accordion-header">
+                                <span class="icon">💡</span> Vulgarisation technique
+                                <span class="toggle-icon">+</span>
+                            </div>
+                            <div class="community-accordion-content">
+                                <p>Transformation de concepts complexes en ressources accessibles pour une meilleure assimilation des connaissances.</p>
+                            </div>
+                        </div>
+                        <div class="community-accordion-item">
+                            <div class="community-accordion-header">
+                                <span class="icon">👑</span> Leadership
+                                <span class="toggle-icon">+</span>
+                            </div>
+                            <div class="community-accordion-content">
+                                <p>Animation des discussions, structuration du contenu et encouragement à la pratique pour développer la confiance et l'autonomie des membres.</p>
+                            </div>
+                        </div>
+                        <!-- Nouvelle 5ème étape : Création de documents interactifs -->
+                        <div class="community-accordion-item">
+                            <div class="community-accordion-header">
+                                <span class="icon">📄</span> Création de documents interactifs
+                                <span class="toggle-icon">+</span>
+                            </div>
+                            <div class="community-accordion-content">
+                                <p>Conception de supports pédagogiques dynamiques pour la communauté.</p>
+                                <p class="mt-2">Exemple de document : <a href="https://projettechacademy.github.io/Suivi-et-Revisi...d-de-Paie/" target="_blank" class="text-accent-blue hover:text-peps-rose-orange underline">✨ Programme ✨ Suivi ✨ Révision ✨ Évaluation ✨ Graduate Gestionnaire de Paie ✨</a> (Objectif: Certification Gestionnaire de Paie)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="info-card-text mt-4">
+                        La communauté est accessible via :
+                        <div class="flex justify-center mt-4 flex-wrap gap-2">
+                            <a href="https://chat.whatsapp.com/EtV0ux5ipAG5JDhopzo0ut" target="_blank" class="social-logo-button whatsapp">
+                                <svg viewBox="0 0 24 24" width="24" height="24" fill="white" class="mr-2"><path d="M12.04 2c-5.45 0-9.91 4.46-9.91 9.91 0 1.75.5 3.45 1.46 4.96L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.45 0 9.91-4.46 9.91-9.91s-4.46-9.91-9.91-9.91zm.04 18.12c-1.48 0-2.93-.4-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31c-.81-1.26-1.25-2.73-1.25-4.28C3.99 7.5 7.5 3.99 12.04 3.99c3.98 0 7.23 3.25 7.23 7.23 0 3.98-3.25 7.23-7.23 7.23zm4.52-6.12c-.25-.12-.92-.46-1.06-.51-.15-.05-.29-.05-.42.05-.14.1-.54.51-.66.65-.12.14-.25.15-.49.07-.23-.08-.97-.36-1.85-.92-.69-.45-1.15-.8-1.28-1.03-.13-.2-.01-.31.09-.41.09-.09.2-.23.29-.34.09-.1.12-.18.18-.31.06-.13.03-.24-.01-.34-.04-.1-.42-1.02-.58-1.39-.15-.36-.3-.31-.42-.32h-.4c-.14-.01-.36-.01-.54.1-.18.11-.69.68-.69 1.67 0 .99.71 1.93.81 2.06.1.14 1.39 2.13 3.38 2.9.47.18.84.29 1.13.37.49.14.7.12.96.08.27-.05.89-.36 1.02-.71.13-.35.13-.65.09-.71-.05-.06-.15-.1-.28-.16z"/></svg>
+                                WhatsApp
+                            </a>
+                            <a href="https://discord.gg/4XFpkQDzde" target="_blank" class="social-logo-button discord">
+                                <svg viewBox="0 0 24 24" width="24" height="24" fill="white" class="mr-2"><path d="M20.317 1.438a1.353 1.353 0 00-1.07-.406c-1.83.19-3.565.594-5.228 1.187a.97.97 0 00-.518.006c-1.663-.593-3.398-.997-5.228-1.187a1.353 1.353 0 00-1.07.406 1.05 1.05 0 00-.406.844c0 4.094 1.375 7.562 4.125 10.406a1.05 1.05 0 00.844.406 1.353 1.353 0 00.938-.406c2.75-2.844 4.125-6.312 4.125-10.406a1.05 1.05 0 00-.406-.844zM8.53 13.938a.938.938 0 01-.938.938.938.938 0 01-.937-.938.938.938 0 01.937-.938.938.938 0 01.938.938zm6.938 0a.938.938 0 01-.938.938.938.938 0 01-.937-.938.938.938 0 01.937-.938.938.938 0 01.938.938z"/></svg>
+                                Discord
+                            </a>
+                        </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Section "Me Contacter" -->
+        <div id="contact-section" class="section-container">
+            <div class="contact-container">
+                <div class="contact-header">
+                    <p class="contact-pre-title">Me contacter</p>
+                    <h2 class="contact-title">Mes Coordonnées</h2>
+                </div>
+                <div class="contact-cards-grid">
+                    <div class="contact-card card-phone">
+                        <div class="contact-card-content">
+                            <a href="tel:0685900887" class="contact-link">
+                                <span class="contact-icon">📱</span>
+                                <span class="contact-text-label">Téléphone</span>
+                                <span class="contact-text-value">06 85 90 08 87</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="contact-card card-email">
+                        <div class="contact-card-content">
+                            <a href="mailto:mathilde.martine.paisley@gmail.com" class="contact-link">
+                                <span class="contact-icon">📧</span>
+                                <span class="contact-text-label">E-mail</span>
+                                <span class="contact-text-value">mathilde.martine.paisley@gmail.com</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="contact-card card-address">
+                        <div class="contact-card-content">
+                            <a href="https://www.google.com/maps/dir/?api=1&destination=92110+Clichy+France" target="_blank" class="contact-link">
+                                <span class="contact-icon">🏠</span>
+                                <span class="contact-text-label">Adresse</span>
+                                <span class="contact-text-value">92110 Clichy (France)</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Engagement Éthique & Handicap -->
+        <div id="handicap-section" class="section-container">
+            <h2 class="text-2xl sm:text-3xl font-bold section-title mb-8 text-center">Engagement Éthique & Handicap</h2>
+            <div class="info-category-grid">
+                <div class="info-dynamic-card engagement-communaute lg:col-span-3"> <!-- Adjust span as needed for layout -->
+                    <div class="info-card-overlay-shape"></div>
+                    <span class="info-card-large-icon">♿</span> <!-- Icône pour le handicap -->
+                    <h3 class="info-card-header-title">Engagement pour l'Accessibilité et l'Éthique</h3>
+                    <p class="info-card-text mt-2 text-justify">
+                        En tant que **Travailleur Handicapé (RQTH)**, la transparence est une valeur essentielle pour moi. J'ai un handicap non-visible qui ne m'empêche en rien de remplir mes missions de façon autonome et rigoureuse.
+                    </p>
+                    <h4 class="font-bold text-lg text-peps-rose-orange mt-4">Aménagements nécessaires :</h4>
+                    <div class="space-y-4 mt-4">
+                        <div class="community-accordion-item">
+                            <div class="community-accordion-header">
+                                <span class="icon">🪑</span> Chaise et bureau ergonomiques
+                                <span class="toggle-icon">+</span>
+                            </div>
+                            <div class="community-accordion-content">
+                                <p>Un environnement de travail adapté pour garantir le confort et prévenir les troubles musculo-squelettiques.</p>
+                            </div>
+                        </div>
+                        <div class="community-accordion-item">
+                            <div class="community-accordion-header">
+                                <span class="icon">⌨️</span> Clavier et souris adaptés
+                                <span class="toggle-icon">+</span>
+                            </div>
+                            <div class="community-accordion-content">
+                                <p>Des périphériques ergonomiques pour une utilisation prolongée sans gêne.</p>
+                            </div>
+                        </div>
+                        <div class="community-accordion-item">
+                            <div class="community-accordion-header">
+                                <span class="icon">📝</span> Logiciel de prise de notes
+                                <span class="toggle-icon">+</span>
+                            </div>
+                            <div class="community-accordion-content">
+                                <p>Un outil numérique pour faciliter l'organisation et la mémorisation des informations.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="info-card-text mt-4 text-justify">
+                        Ces aménagements sont très courants et simples à mettre en place. Pour accompagner l'employeur dans cette démarche, des solutions d'aide et de subvention sont proposées par l'**AGEFIPH**.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Réalisations Clés -->
+        <div id="realisations-section" class="section-container">
+            <h2 class="text-2xl sm:text-3xl font-bold section-title mb-8 text-center">Réalisations Clés</h2>
+            <p class="text-gray-700 leading-relaxed text-justify mb-6">
+                Ce document complète mon CV et présente, de manière détaillée et factuelle, les missions réalisées
+                tout au long de mon parcours professionnel.
+            </p>
+
+            <div class="realisations-accordion-item gradient-1">
+                <div class="realisations-accordion-header">
+                    <div>
+                        <h3>Nexpublica - Référente Fonctionnelle SIRH</h3>
+                        <span class="period">Décembre 2024 – Mai 2025</span>
+                    </div>
+                    <span class="realisations-accordion-toggle-icon">+</span>
+                </div>
+                <div class="realisations-accordion-content">
+                    <ul>
+                        <li>Appui fonctionnel sur l’outil Chronotime (GTA).</li>
+                        <li>Analyse des besoins clients et rédaction de spécifications fonctionnelles.</li>
+                        <li>Participation active à des ateliers de relecture avec les utilisateurs, intégrant leurs retours pour optimiser l’outil.</li>
+                        <li>Suivi rigoureux des échanges avec les équipes techniques, assurant une communication fluide et efficace.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="realisations-accordion-item gradient-2">
+                <div class="realisations-accordion-header">
+                    <div>
+                        <h3>CGI – Consultante Fonctionnelle</h3>
+                        <span class="period">Janvier 2023 à juin 2024</span>
+                    </div>
+                    <span class="realisations-accordion-toggle-icon">+</span>
+                </div>
+                <div class="realisations-accordion-content">
+                    <h4>Ministère de la Justice – Direction de l’Administration Pénitentiaire</h4>
+                    <p class="text-gray-700 mb-2">Projet d’AMOA sur HR Access 4YOU V9 – Déploiement de la solution Octave dans 189 établissements pénitentiaires (gestion de la paie des personnes détenues).</p>
+                    <ul>
+                        <li>Rédaction précise des scripts de tests.</li>
+                        <li>Élaboration exhaustive des cas de test couvrant tous les scénarios.</li>
+                        <li>Exécution rigoureuse des scénarios de validation, documentant les résultats.</li>
+                        <li>Détection proactive, qualification et correction des anomalies.</li>
+                        <li>Remontée structurée des dysfonctionnements aux équipes de développement, facilitant la résolution.</li>
+                        <li>Suivi attentif des corrections et nouvelle exécution des tests (rejets, reprises).</li>
+                        <li>Validation finale pour mise en production, garantissant la qualité du déploiement.</li>
+                    </ul>
+                    <ul class="mt-4">
+                        <li>Formation opérationnelle adaptée aux besoins des utilisateurs.</li>
+                        <li>Assistance réactive en phase de recette métier, répondant aux questions et résolvant les problèmes.</li>
+                        <li>Support dédié à la montée en compétence, assurant l’autonomie des utilisateurs.</li>
+                    </ul>
+
+                    <h4 class="mt-6">Air Liquide – Direction des Ressources Humaines</h4>
+                    <p class="text-gray-700 mb-2">Intervention sur le projet d’actualisation du livre blanc / des procédures réglementaires de paie, document central pour l’ensemble des sites français.</p>
+                    <ul>
+                        <li>Recensement exhaustif et actualisation des rubriques de paie utilisées dans HR Access.</li>
+                        <li>Mise à jour précise des règles de paie spécifiques par site, en lien avec les particularités locales.</li>
+                        <li>Interviews approfondies des gestionnaires paie sur environ 30 sites en France, afin de formaliser les pratiques réelles et les intégrer dans le document.</li>
+                        <li>Prise en compte rigoureuse des évolutions d’organisation : ventes de sites, changements de périmètre RH, mutations internes.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="realisations-accordion-item gradient-3">
+                <div class="realisations-accordion-header">
+                    <div>
+                        <h3>Talent Solutions - Chargée RH</h3>
+                        <span class="period">Juillet 2022 à décembre 2022</span>
+                    </div>
+                    <span class="realisations-accordion-toggle-icon">+</span>
+                </div>
+                <div class="realisations-accordion-content">
+                    <ul>
+                        <li><b>Gestion de la Paie :</b> Responsable de la gestion de la paie pour 4 entités et 350 collaborateurs sur Cegid People net GA et VSA.</li>
+                        <li><b>Gestion administrative :</b> Mise en œuvre de démarches visant à améliorer l’efficacité des processus administratifs.</li>
+                        <li><b>Encadrement d’équipe :</b> Transfert de compétences et mise en place de pratiques de mentorat pour favoriser le développement professionnel des membres de l’équipe.</li>
+                        <li><b>Projet d’Optimisation RH :</b> Mise en place de solutions pour faciliter l’intégration des collaborateurs.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="realisations-accordion-item gradient-4">
+                <div class="realisations-accordion-header">
+                    <div>
+                        <h3>Epi-Use France - Consultante Paie SIRH</h3>
+                        <span class="period">Novembre 2018 à mars 2022</span>
+                    </div>
+                    <span class="realisations-accordion-toggle-icon">+</span>
+                </div>
+                <div class="realisations-accordion-content">
+                    <p class="text-gray-700 mb-2">Contexte : Participation à un projet de création d’un Centre de Services Partagés (CSP) pour le groupe Tereos, en soutien à la reprise de la connaissance métier paie à la suite du départ progressif des gestionnaires.</p>
+                    <ul>
+                        <li>Reprise approfondie de la connaissance métier sur 20 sites impactés par le déploiement du CSP.</li>
+                        <li>Mise à jour complète des procédures de paie (processus complets de traitement, contrôles, pratiques locales).</li>
+                        <li>Rédaction claire et concise de guides utilisateurs pour l’outil Pléiade.</li>
+                        <li>Organisation et animation dynamique d’ateliers de relecture avec les gestionnaires et responsables locaux.</li>
+                        <li>Conduite efficace de mises en situation (traitements concrets de paie) avec l’outil.</li>
+                        <li>Formation et transfert de compétences aux nouvelles recrues internes (CDI) appelées à reprendre les postes de gestionnaires paie.</li>
+                    </ul>
+                    <ul class="mt-4">
+                        <li>Conception de 23 procédures réglementaires de paie adaptées à l’environnement SAP.</li>
+                        <li>Élaboration d’un livre blanc paie consolidant les pratiques standards et les adaptations spécifiques Tereos.</li>
+                        <li>Animation d’ateliers de validation, de relecture et de mise en situation.</li>
+                        <li>Transfert de connaissances formalisé auprès des titulaires internes, accompagnement à la prise de poste.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="realisations-accordion-item gradient-5">
+                <div class="realisations-accordion-header">
+                    <div>
+                        <h3>Multi Sociétés - Chargée de Paie</h3>
+                        <span class="period">Avril 2008 à octobre 2018</span>
+                    </div>
+                    <span class="realisations-accordion-toggle-icon">+</span>
+                </div>
+                <div class="realisations-accordion-content">
+                    <ul>
+                        <li><b>Gestion Globale de la Paie :</b> Responsable de la gestion de la paie pour 250 à 1200 collaborateurs.</li>
+                        <li><b>Optimisation des Processus RH :</b> Mise en œuvre de solutions pour optimiser les processus de paie, réduire les délais de traitement et améliorer la précision des calculs.</li>
+                        <li><b>Évolutions Légales :</b> Conduite d’évolutions légales, garantissant la conformité et la mise à jour continue des pratiques de paie.</li>
+                        <li><b>Administration du Personnel :</b> Gestion complète des documents administratifs (DPAE, contrats, avenants).</li>
+                        <li><b>Veille Sociale et Juridique :</b> Suivi des évolutions légales en RH, garantissant la conformité des pratiques de paie.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="realisations-accordion-item gradient-6">
+                <div class="realisations-accordion-header">
+                    <div>
+                        <h3>KFC - Directrice de Centre de Profit</h3>
+                        <span class="period">Avril 2002 à mars 2004</span>
+                    </div>
+                    <span class="realisations-accordion-toggle-icon">+</span>
+                </div>
+                <div class="realisations-accordion-content">
+                    <ul>
+                        <li><b>Management d’Équipe :</b> Encadrement et motivation d’une équipe de 70 personnes, comprenant managers et équipiers.</li>
+                        <li><b>Gestion Financière :</b> Responsabilité du chiffre d’affaires, élaboration de stratégies pour stimuler les ventes.</li>
+                        <li><b>Formation :</b> Conception et mise en œuvre de programmes de formation pour améliorer les compétences du personnel.</li>
+                        <li><b>Optimisation des Processus :</b> Mise en place de procédures opérationnelles pour assurer une gestion fluide du centre.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Soft & Hard Skills (Intégré avec le nouveau design) -->
+        <div id="skills-section" class="section-container">
+            <h2 class="text-2xl sm:text-3xl font-bold skills-section-title mb-8">Soft & Hard Skills</h2>
+            <p class="skills-intro-text">
+                Ma personnalité et mes compétences interpersonnelles sont des atouts majeurs pour le succès de vos projets.
+            </p>
+            <div class="skills-grid">
+                <div class="skill-card soft-skills-bg p-6 rounded-lg">
+                    <div class="info-card-overlay-shape"></div> <!-- Forme décorative -->
+                    <h3>Soft Skills</h3>
+                    <div class="skill-tags-container">
+                        <span class="skill-tag tag-soft-color-1" data-full-text="Leadership naturel et capacité à motiver les équipes. Mon expérience en tant que Directrice de Centre de Profit chez KFC (Avril 2002 – Mars 2004) m'a permis d'encadrer et de former une équipe de 70 personnes." id="soft-skill-1">
+                            <span class="skill-tag-text">Leadership naturel</span>
+                            <span class="skill-tag-toggle">✕</span>
+                        </span>
+                        <span class="skill-tag tag-soft-color-2" data-full-text="Excellentes compétences en communication et écoute active. Essentielles pour la coordination inter-pôles chez Groupe Ponticelli Frères (Sept. 2024 – Nov. 2024)." id="soft-skill-2">
+                            <span class="skill-tag-text">Communication</span>
+                            <span class="skill-tag-toggle">✕</span>
+                        </span>
+                        <span class="skill-tag tag-soft-color-3" data-full-text="Esprit d'analyse et de synthèse, crucial pour la rédaction de spécifications fonctionnelles détaillées chez Nexpublica (Déc. 2024 – Mai 2025)." id="soft-skill-3">
+                            <span class="skill-tag-text">Analyse & Synthèse</span>
+                            <span class="skill-tag-toggle">✕</span>
+                        </span>
+                        <span class="skill-tag tag-soft-color-4" data-full-text="Rigueur et organisation, démontrées dans la supervision de la recette fonctionnelle chez Groupe Ponticelli Frères (Sept. 2024 – Nov. 2024)." id="soft-skill-4">
+                            <span class="skill-tag-text">Rigueur</span>
+                            <span class="skill-tag-toggle">✕</span>
+                        </span>
+                        <span class="skill-tag tag-soft-color-1" data-full-text="Adaptabilité et flexibilité, un atout dans les environnements multi-conventions chez ADP GSI France (Sept. 2015 - Mars 2017)." id="soft-skill-5">
+                            <span class="skill-tag-text">Adaptabilité</span>
+                            <span class="skill-tag-toggle">✕</span>
+                        </span>
+                        <span class="skill-tag tag-soft-color-2" data-full-text="Proactivité et forte capacité de proposition pour l'amélioration des processus de paie chez Talent Solutions (Juil. 2022 – Déc. 2022)." id="soft-skill-6">
+                            <span class="skill-tag-text">Proactivité</span>
+                            <span class="skill-tag-toggle">✕</span>
+                        </span>
+                        <span class="skill-tag tag-soft-color-3" data-full-text="Orientée résultats et sens du service, pour garantir la performance durable des équipes." id="soft-skill-7">
+                            <span class="skill-tag-text">Orientée résultats</span>
+                            <span class="skill-tag-toggle">✕</span>
+                        </span>
+                        <span class="skill-tag tag-soft-color-4" data-full-text="Créativité et innovation, notamment dans la conception de documents interactifs pour la communauté 'Payroll Boss Elite Club'." id="soft-skill-8">
+                            <span class="skill-tag-text">Créativité</span>
+                            <span class="skill-tag-toggle">✕</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="skill-card hard-skills-bg p-6 rounded-lg">
+                    <div class="info-card-overlay-shape"></div> <!-- Forme décorative -->
+                    <h3>Hard Skills</h3>
+                    <div class="skill-tags-container">
+                        <span class="skill-tag tag-hard-color-1" data-full-text="Gestion de projets, incluant la recette et la mise en production d'outils SIRH chez CGI (Janv. 2023 - Juin 2024)." id="hard-skill-1">
+                            <span class="skill-tag-text">Gestion de projets</span>
+                            <span class="skill-tag-toggle">✕</span>
+                        </span>
+                        <span class="skill-tag tag-hard-color-2" data-full-text="Gestion de la paie et administration RH pour 4 entités et 350 collaborateurs chez Talent Solutions (Juil. 2022 – Déc. 2022)." id="hard-skill-2">
+                            <span class="skill-tag-text">Paie & Admin RH</span>
+                            <span class="skill-tag-toggle">✕</span>
+                        </span>
+                        <span class="skill-tag tag-hard-color-3" data-full-text="Maîtrise des outils SIRH comme HR Access, SAP SuccessFactors et Chronotime, avec une expérience chez Nexpublica et CGI." id="hard-skill-3">
+                            <span class="skill-tag-text">Outils SIRH</span>
+                            <span class="skill-tag-toggle">✕</span>
+                        </span>
+                        <span class="skill-tag tag-hard-color-4" data-full-text="Gestion du changement et formation des utilisateurs, notamment pour le déploiement d'outils Paie et DSN chez CGI." id="hard-skill-4">
+                            <span class="skill-tag-text">Gestion du changement</span>
+                            <span class="skill-tag-toggle">✕</span>
+                        </span>
+                        <span class="skill-tag tag-hard-color-1" data-full-text="Veille réglementaire et technologique continue, avec la rédaction de livres blancs réglementaires chez CGI." id="hard-skill-5">
+                            <span class="skill-tag-text">Veille réglementaire</span>
+                            <span class="skill-tag-toggle">✕</span>
+                        </span>
+                        <span class="skill-tag tag-hard-color-2" data-full-text="Optimisation des processus RH et Paie, mise en œuvre de solutions pour améliorer l'efficacité chez Talent Solutions." id="hard-skill-6">
+                            <span class="skill-tag-text">Optimisation processus</span>
+                            <span class="skill-tag-toggle">✕</span>
+                        </span>
+                        <span class="skill-tag tag-hard-color-3" data-full-text="Management d'équipes pluridisciplinaires, encadrement d'une équipe de 70 personnes chez KFC." id="hard-skill-7">
+                            <span class="skill-tag-text">Management équipes</span>
+                            <span class="skill-tag-toggle">✕</span>
+                        </span>
+                        <span class="skill-tag tag-hard-color-4" data-full-text="Rédaction de spécifications techniques et fonctionnelles, incluant la création de guides utilisateurs et de scripts de tests." id="hard-skill-8">
+                            <span class="skill-tag-text">Rédaction de specs</span>
+                            <span class="skill-tag-toggle">✕</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="main-footer">
+        <p class="footer-text">© 2025 Mathilde Martine PAISLEY - Partenaire Stratégique RH, Paie & Transformation Digitale</p>
+        <!-- Google Calendar Appointment Scheduling begin -->
+        <link href="https://calendar.google.com/calendar/scheduling-button-script.css" rel="stylesheet">
+        <script src="https://calendar.google.com/calendar/scheduling-button-script.js" async></script>
+        <script>
+        (function() {
+            var target = document.currentScript;
+            window.addEventListener('load', function() {
+                calendar.schedulingButton.load({
+                    url: 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ3PasEF32i8CmDVpWW0khLTO5IVNNxrSeu6fgqV5hk1sHDErGlpKRMAfdDfmFgQEtaZ8WPUpqcJ?gv=true',
+                    color: '#D81B60',
+                    label: 'Réserver un rendez-vous',
+                    target,
+                });
+            });
+        })();
+        </script>
+        <!-- end Google Calendar Appointment Scheduling -->
+    </footer>
+
+    <script>
+        let activePopup = null; // Declare activePopup in a higher scope
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Logic for header menu toggle
+            const menuToggle = document.getElementById('menu-toggle');
+            const headerNav = document.getElementById('header-nav');
+
+            menuToggle.addEventListener('click', () => {
+                headerNav.classList.toggle('active');
+            });
+
+            // Logic for anchor link scrolling
+            const navLinks = document.querySelectorAll('.header-nav a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+
+                    // Close mobile menu if open
+                    if (headerNav.classList.contains('active')) {
+                        headerNav.classList.remove('active');
+                    }
+                });
+            });
+
+            // Logic for all accordions (timeline, formations, community, handicap, realisations, and AI)
+            function setupAccordion(selector, contentSelector, toggleIconSelector) {
+                document.querySelectorAll(selector).forEach(button => {
+                    button.addEventListener('click', function() {
+                        // Corrected line: Prioritize data-target, then nextElementSibling
+                        const content = document.getElementById(this.dataset.target) || this.nextElementSibling;
+                        const toggleIcon = this.querySelector(toggleIconSelector);
+                        const parentItem = this.closest('.timeline-item') || this.closest('.formation-badge') || this.closest('.community-accordion-item') || this.closest('.realisations-accordion-item');
+
+                        // Close all other open accordions in the same section
+                        const parentTabPane = parentItem.closest('.section-container');
+                        if (parentTabPane) {
+                            parentTabPane.querySelectorAll(selector).forEach(otherButton => {
+                                if (otherButton !== this) {
+                                    const otherContent = document.getElementById(otherButton.dataset.target) || otherButton.nextElementSibling; // Apply same correction here
+                                    const otherToggleIcon = otherButton.querySelector(toggleIconSelector);
+                                    const otherParentItem = otherButton.closest('.timeline-item') || otherButton.closest('.formation-badge') || otherButton.closest('.community-accordion-item') || otherButton.closest('.realisations-accordion-item');
+
+                                    if (otherParentItem && otherParentItem.classList.contains('active')) {
+                                        otherParentItem.classList.remove('active');
+                                        if (otherContent) otherContent.style.maxHeight = null;
+                                        if (otherToggleIcon) otherToggleIcon.textContent = '+';
+                                    }
+                                }
+                            });
+                        }
+
+                        // Toggle current accordion
+                        parentItem.classList.toggle('active');
+                        if (parentItem.classList.contains('active')) {
+                            content.style.maxHeight = content.scrollHeight + "px";
+                            if (toggleIcon) toggleIcon.textContent = '-';
+                        } else {
+                            content.style.maxHeight = null;
+                            if (toggleIcon) toggleIcon.textContent = '+';
+                        }
+                    });
+                });
+            }
+
+            // Setup for different accordion types
+            setupAccordion('.timeline-toggle', '.timeline-details', 'span:last-child');
+            setupAccordion('.formation-badge', '.badge-skills-list', '.toggle-icon');
+            setupAccordion('.community-accordion-header', '.community-accordion-content', '.toggle-icon');
+            setupAccordion('.realisations-accordion-header', '.realisations-accordion-content', '.realisations-accordion-toggle-icon');
+            
+            // Vertical Text Carousel Logic
+            const carouselContainer = document.querySelector('#text-carousel');
+            let currentIndex = 0;
+            const messages = [
+                { text: '<span class="text-2xl mr-2">🌟</span> Plus de <b>20 ans d\'expérience</b> en RH, Paie et Conseil.', color: 'rose' },
+                { text: '<span class="text-2xl mr-2">🎓</span> <b>Titre certifié Chief Digital Officer (CDO).</b>', color: 'orange' },
+                { text: '<span class="text-2xl mr-2">🚀</span> Pilote la <b>transformation numérique</b> avec vision stratégique et humaine.', color: 'violet' },
+                { text: '<span class="text-2xl mr-2">🔗</span> Fait le lien entre <b>métier RH, réglementation et innovation digitale.</b>', color: 'fuchsia' },
+                { text: '<span class="text-2xl mr-2">📈</span> Garantit la <b>performance durable</b> et diffuse la <b>culture digitale.</b>', color: 'bordeaux' },
+                { text: '<span class="text-2xl mr-2">📄</span> Passionnée par la <b>création de documents interactifs</b> et le mentorat.', color: 'rose' },
+                { text: '<span class="text-2xl mr-2">🍪</span> Adepte de la <b>pâtisserie</b>, de la musique et de la danse.', color: 'orange' },
+                { text: '<span class="text-2xl mr-2">💡</span> En <b>veille technologique</b> constante (Apple, Android).', color: 'violet' },
+                { text: '<span class="text-2xl mr-2">💼</span> Expertise en <b>SIRH, Paie et Droit Social</b>.', color: 'fuchsia' },
+                { text: '<span class="text-2xl mr-2">🤝</span> Créatrice et animatrice de la communauté <b>"Payroll Boss Elite Club"</b>.', color: 'bordeaux' },
+                { text: '<span class="text-2xl mr-2">📚</span> Passionnée de <b>développement personnel et spiritualité</b>.', color: 'rose' },
+                { text: '<span class="text-2xl mr-2">⚙️</span> Monte des PC et s\'initie au <b>codage (HTML, CSS, JavaScript)</b>.', color: 'orange' },
+                { text: '<span class="text-2xl mr-2">🎯</span> Maîtrise des <b>méthodologies Agile et Scrum</b> pour la gestion de projet.', color: 'violet' },
+                { text: '<span class="text-2xl mr-2">📊</span> Forte compétence en <b>analyse de données RH et reporting</b>.', color: 'fuchsia' },
+                { text: '<span class="text-2xl mr-2">🔒</span> Sensibilisation et expertise en <b>cybersécurité</b> appliquée aux systèmes RH.', color: 'bordeaux' },
+                { text: '<span class="text-2xl mr-2">✨</span> Conception centrée utilisateur pour une <b>expérience digitale optimale (UX)</b>.', color: 'rose' },
+                { text: '<span class="text-2xl mr-2">🗣️</span> Excellentes compétences en <b>communication et prise de parole en public</b>.', color: 'orange' },
+                { text: '<span class="text-2xl mr-2">🌍</span> Gestion et animation d\'équipes dans des <b>contextes multiculturels</b>.', color: 'violet' },
+                { text: '<span class="text-2xl mr-2">⚖️</span> Expertise en <b>gouvernance des données</b> et conformité RGPD.', color: 'fuchsia' },
+                { text: '<span class="text-2xl mr-2">🌱</span> Engagement pour le <b>développement durable</b> et l\'innovation responsable.', color: 'bordeaux' },
+                { text: '<span class="text-2xl mr-2">💡</span> Capacité à transformer les défis en <b>opportunités d\'innovation</b>.', color: 'rose' },
+                { text: '<span class="text-2xl mr-2">🔄</span> Favorise l\'<b>apprentissage continu</b> et le développement des compétences.', color: 'orange' },
+                { text: '<span class="text-2xl mr-2">🌐</span> Développe des <b>réseaux professionnels</b> solides et des partenariats stratégiques.', color: 'violet' },
+                { text: '<span class="text-2xl mr-2">💖</span> Approche <b>humaine et empathique</b> dans toutes les interactions professionnelles.', color: 'fuchsia' },
+                { text: '<span class="text-2xl mr-2">🛠️</span> Expertise en <b>optimisation des processus</b> et amélioration continue.', color: 'bordeaux' }
+            ];
+
+            // Create all carousel items initially
+            messages.forEach((msg, index) => {
+                const messageElement = document.createElement('div');
+                messageElement.classList.add('text-carousel-item');
+                messageElement.innerHTML = msg.text;
+                messageElement.setAttribute('data-color', msg.color);
+                messageElement.setAttribute('data-index', index);
+                carouselContainer.appendChild(messageElement);
+            });
+
+            const carouselItems = document.querySelectorAll('.text-carousel-item');
+
+            function showNextMessage() {
+                // Remove previous active state
+                carouselItems.forEach(item => item.classList.remove('active', 'exit-up', 'enter-down'));
+
+                // Set previous item to exit upwards
+                const prevIndex = (currentIndex - 1 + messages.length) % messages.length;
+                carouselItems[prevIndex].classList.add('exit-up');
+
+                // Set current item to active
+                carouselItems[currentIndex].classList.add('active');
+
+                // Update index for next message
+                currentIndex = (currentIndex + 1) % messages.length;
+            }
+
+            // Show the first message immediately
+            showNextMessage();
+            // Change message every 4 seconds
+            setInterval(showNextMessage, 4000);
+
+            // --- Logic for Skill Popups (Copied from mini version) ---
+            const skillTags = document.querySelectorAll('.skill-tag');
+            
+
+            // Fonction pour fermer tous les popups
+            function closeAllPopups() {
+                if (activePopup) {
+                    activePopup.classList.remove('active');
+                    // Remove the popup from the DOM after animation
+                    activePopup.addEventListener('animationend', function handler() {
+                        activePopup.remove();
+                        activePopup.removeEventListener('animationend', handler);
+                    });
+                    activePopup = null;
+                }
+            }
+
+            skillTags.forEach(tag => {
+                const toggleButton = tag.querySelector('.skill-tag-toggle');
+                const fullText = tag.dataset.fullText; // Récupère le texte complet
+
+                // Assurez-vous que chaque tag a un ID unique
+                if (!tag.id) {
+                    tag.id = `skill-tag-${Math.random().toString(36).substr(2, 9)}`;
+                }
+
+                toggleButton.addEventListener('click', function(event) {
+                    event.stopPropagation(); // Empêche le clic de se propager au document
+
+                    const skillCard = this.closest('.skill-card'); // Get the parent skill-card
+                    const containerMain = document.querySelector('.container-main'); // Get the main container
+
+                    // If a popup is already open for this tag, close it
+                    const existingPopup = document.getElementById(`popup-${tag.id}`);
+                    if (existingPopup && existingPopup.classList.contains('active')) {
+                        closeAllPopups();
+                        return;
+                    }
+
+                    // Close any other active popup before opening a new one
+                    if (activePopup && activePopup.dataset.tagId !== tag.id) {
+                        closeAllPopups();
+                    }
+
+                    // Create the popup
+                    const popup = document.createElement('div');
+                    popup.classList.add('skill-popup');
+                    popup.id = `popup-${tag.id}`; // Associate the popup with the tag's ID
+                    popup.dataset.tagId = tag.id; // Store the tag's ID in the popup's dataset
+                    
+                    // Add an emoji and introduction text
+                    popup.innerHTML = `<p>💡 <b>Détail de la compétence :</b></p><p>${fullText}</p>`;
+                    
+                    // Append to the main container, which is relatively positioned
+                    containerMain.appendChild(popup);
+
+                    // Position the popup relative to the clicked tag
+                    const tagRect = tag.getBoundingClientRect();
+                    const containerMainRect = containerMain.getBoundingClientRect();
+
+                    let popupLeft = tagRect.right - containerMainRect.left + 10; // 10px margin to the right
+                    let popupTop = tagRect.top - containerMainRect.top;
+
+                    // Adjust for horizontal overflow
+                    if (popupLeft + popup.offsetWidth > containerMainRect.width - 10) { // If overflows right
+                        popupLeft = tagRect.left - containerMainRect.left - popup.offsetWidth - 10; // Position to the left
+                        if (popupLeft < 10) { // If overflows left as well
+                            popupLeft = 10; // Align to left edge of container
+                            popup.style.maxWidth = `${containerMainRect.width - 20}px`; // Max width within container
+                        }
+                    }
+
+                    // Adjust for vertical overflow (bottom)
+                    if (popupTop + popup.offsetHeight > containerMainRect.height - 10) {
+                        popupTop = containerMainRect.height - popup.offsetHeight - 10; // Push up from bottom
+                        if (popupTop < 10) { // If still overflows top (very tall popup)
+                            popupTop = 10; // Align to top edge of container
+                            popup.style.maxHeight = `${containerMainRect.height - 20}px`; // Limit height
+                            popup.style.overflowY = 'auto'; // Make scrollable
+                        }
+                    }
+
+
+                    popup.style.left = `${popupLeft}px`;
+                    popup.style.top = `${popupTop}px`;
+                    
+                    popup.classList.add('active');
+                    activePopup = popup; // Set this popup as active
+                });
+            });
+
+            // Close the popup if clicking outside of it or a skill-tag-toggle button
+            document.addEventListener('click', function(event) {
+                if (activePopup && !activePopup.contains(event.target) && !event.target.closest('.skill-tag-toggle')) {
+                    closeAllPopups();
+                }
+            });
+
+            // --- End of Skill Popups logic ---
+        });
+    </script>
+</body>
+</html>
